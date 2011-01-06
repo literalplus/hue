@@ -81,6 +81,10 @@ $klassen[$klc] .='<tr><td><div style="text-align:center">Heute, '.$day['name'].'
 }
 $klassen[$klc] .= "</td></tr></table>";
 }
+if($dayc==0){
+$klassen[$klc] .="<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'><tr><td style='text-align:center;'><strong>Kein Tag vorhanden [Klasse ".$kl['name']."]</strong></td></tr>";
+$klassen[$klc] .="<tr><td><strong>F&uuml;r die Klasse ".$kl['name']." sind im Moment weder Tage noch Haus&uuml;bungen verf&uuml;gbar.</td></tr></table>";
+}
 $klassen[$klc] .= "</p></div>";
 }
 echo'<div class="demo"><div id="tabs"><ul>';
