@@ -282,7 +282,7 @@ newpopupclass();
 function himg($img){
 switch ($img) {
 case 1:
-return '<img src="'.HUE_IMAGES.'achtung.png alt="!" title="!" />';
+return '<img src="'.HUE_IMAGES.'achtung.png" alt="!" title="!" />';
 break;
 }
 }
