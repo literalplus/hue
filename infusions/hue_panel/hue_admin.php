@@ -116,7 +116,7 @@ $rate="1";
 } else {
 $rate="0";
 }
-$db="UPDATE ".DB_HUE." SET hue_short='".$_POST['hue_short']."',fach='".$_POST['fach']."',hue='".$_POST['hue']."',comment='".$_POST['comment']."',status='".$_POST['free']."',abgabe='".date_format(date_create($_POST['abgabe2']),"d.m.y")."',comments=".$comments.",rate=".$rate.",dayid='".$_POST['dayid']."',typ='".$_POST['typ']."',uid='".$_POST['uid']."' WHERE id='".$_POST['id']."'";
+$db="UPDATE ".DB_HUE." SET hue_short='".$_POST['hue_short']."',fach='".$_POST['fach']."',hue='".$_POST['hue']."',comment='".$_POST['comment']."',status='".$_POST['free']."',abgabe='".date_format(date_create($_POST['abgabe2']),"d.m.y")."',comments=".$comments.",rate=".$rate.",dayid='".$_POST['dayid']."',typ='".$_POST['typ']."',klasse='".$_POST['klasse']."',uid='".$_POST['uid']."' WHERE id='".$_POST['id']."'";
 if(!dbquery($db)){
 echo'<div class="admin-message">&Auml;nderung <strong>nicht</strong> erfolgreich eingetragen.<br />
 Fehler 1:dbquery('.$db.') gescheitert.</div>';
@@ -154,7 +154,7 @@ $hue="";
 $ank= "checked='checked'";
 }
 echo'<tr class="tbl1"><td>Typ:</td><td><select name="typ" size="1" class="textbox"><option value="hue" label="Haus&uuml;bung"'.$hue.'>Haus&uuml;bung</option><option value="ank" label="Ank&uuml;ndigung"'.$ank.'>Ank&uuml;ndigung</option></select></td></tr>
-<tr class="tbl2"><td>Klasse[<a href="newkl.php" class="lightwindow">Neu</a>]:</td><td>';
+<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="javascript:NeueKlasse(); return false;">Neu</a>]:</td><td>';
 klassenliste($data['klasse']);
 echo'</td></tr>';
 echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
