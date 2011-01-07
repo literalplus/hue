@@ -153,7 +153,7 @@ $ank="";
 $hue="";
 $ank= "checked='checked'";
 }
-echo'<tr class="tbl1"><td>Typ:</td><td><select name="typ" size="1" class="textbox"><option value="hue" label="Haus&uuml;bung"'.$hue.'>Haus&uuml;bung</option><option value="ank" label="Ank&uuml;ndigung"'.$ank.'>Ank&uuml;ndigung</option></select></td></tr>
+echo'<tr class="tbl1"><td><input type="hidden" name="id" value="'.$_GET['id'].'" />Typ:</td><td><select name="typ" size="1" class="textbox"><option value="hue" label="Haus&uuml;bung"'.$hue.'>Haus&uuml;bung</option><option value="ank" label="Ank&uuml;ndigung"'.$ank.'>Ank&uuml;ndigung</option></select></td></tr>
 <tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="javascript:NeueKlasse(); return false;">Neu</a>]:</td><td>';
 klassenliste($data['klasse']);
 echo'</td></tr>';
