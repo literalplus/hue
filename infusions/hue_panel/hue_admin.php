@@ -105,7 +105,9 @@ break;
 case "sende":
 navi_admin(2);
 add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung/Ank&uuml;ndigung editiert");
-if(isset($_POST['submit']) && isset($_POST['id'])){
+if(!isset($_POST['submit']) || !isset($_POST['id'])){
+redirect("hue_admin.php".$aidlink);
+}
 if(isset($_POST['comments'])){
 $comments="1";
 } else {
@@ -124,9 +126,6 @@ navi_admin(2);
 } else {
 echo'<div class="admin-message">&Auml;nderung erfolgreich eingetragen!</div>';
 
-}
-} else {
-redirect("hue_admin.php".$aidlink);
 }
 break;
 case "hue":
@@ -169,16 +168,9 @@ echo'</td></tr>
 
 echo'<tr class="tbl2"><td>Abgabetermin(YYYY-MM-DD):</td><td><input class="textbox" type="date" min="2010" max="3000" value="'.date("Y-m-d").'" onInput="abgabe.value=value" name="abgabe2" value="'.$data['abgabe'].'">
 <output name="abgabe"></output>&nbsp;&nbsp;Falls du Opera nutzt, kannst du das Datum ausw&auml;hlen.</td></tr>';
-echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td><select name="dayid" size="3" class="textbox">';
-$result2=dbquery("SELECT * FROM ".DB_HUE_TAG);
-while ($data = dbarray($result2)) {
-if($data['id']==$data['dayid']){
-	echo'<option label="'.$data['name'].'" value="'.$data['id'].'" checked="checked">'.$data['name'].'</option>';
-	} else {
-	echo'<option label="'.$data['name'].'" value="'.$data['id'].'">'.$data['name'].'</option>';
-	}
-}
-echo'</select></td></tr>';
+echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+tagliste($data['dayid']);
+echo'</td></tr>';
 
 
 echo'<tr class="tbl2"><td>Name:</td><td><input type="text" class="textbox" value="'.$data['name'].'" name="name" /><input type="hidden" name="uid" value="'.$data['uid'].'" /></td></tr>';
@@ -213,12 +205,9 @@ echo'</td></tr>
 
 echo'<tr class="tbl2"><td>Abgabetermin(YYYY-MM-DD):</td><td><input class="textbox" type="date" min="2010" max="3000" value="'.date("Y-m-d").'" onInput="abgabe.value=value" name="abgabe2">
 <output name="abgabe"></output>&nbsp;&nbsp;Falls du Opera nutzt, kannst du das Datum ausw&auml;hlen.</td></tr>';
-echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td><select name="dayid" size="3" class="textbox">';
-$result2=dbquery("SELECT * FROM ".DB_HUE_TAG);
-while ($data = dbarray($result2)) {
-	echo'<option label="'.$data['name'].'" value="'.$data['id'].'">'.$data['name'].'</option>';
-}
-echo'</select></td></tr>';
+echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+tagliste();
+echo'</td></tr>';
 echo'<tr class="tbl2"><td>Optionen:</td><td><input type="checkbox" name="comments" value="1" checked="checked" />Kommentare erlauben?<br />
 <input type="checkbox" name="rate" value="1" checked="checked" />Bewertungen erlauben?';
 echo'<br /><input type="hidden" name="free" value="1" /><input type="hidden" name="name" value="'.$userdata['user_name'].'" /><input type="hidden" name="uid" value="'.$userdata['user_id'].'" />';

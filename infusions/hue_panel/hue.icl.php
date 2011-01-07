@@ -289,4 +289,16 @@ break;
 newpopup(HUE."newkl.php","NeueKlasse","Neue Klasse erstellen");
 newpopup(HUE."newtag.php","NeuerTag","Neuen Tag erstellen");
 newpopup(HUE."newfach.php","NeuesFach","Neues Fach erstellen");
+function tagliste($select=false){
+echo'<select name="dayid" size="3" class="textbox">';
+$result2=dbquery("SELECT * FROM ".DB_HUE_TAG);
+while ($day = dbarray($result2)) {
+if($day['id']==$select){
+	echo'<option label="'.$day['name'].'" value="'.$day['id'].'" checked="checked">'.$day['name'].'['.getkl($day['kl']).']</option>';
+	} else {
+	echo'<option label="'.$day['name'].'" value="'.$day['id'].'">'.$day['name'].'['.getkl($day['kl']).']</option>';
+	}
+}
+echo'</select>';
+}
 ?>
