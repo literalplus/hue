@@ -156,7 +156,7 @@ echo'<tr class="tbl1"><td><input type="hidden" name="id" value="'.$_GET['id'].'"
 <tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="javascript:NeueKlasse(); return false;">Neu</a>]:</td><td>';
 klassenliste($data['klasse']);
 echo'</td></tr>';
-echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="javascript:NeuesFach(); return false;">Neu</a>]:</td><td>';
 fachliste($data['fach']);
 echo'</td></tr>
 <tr class="tbl2"><td>Haus&uuml;bung/Ank&uuml;ndigung:</td><td><textarea name="hue" rows="5" cols="60" class="textbox">'.$data['hue'].'</textarea></td></tr>
@@ -168,7 +168,7 @@ echo'</td></tr>
 
 echo'<tr class="tbl2"><td>Abgabetermin(YYYY-MM-DD):</td><td><input class="textbox" type="date" min="2010" max="3000" value="'.date("Y-m-d").'" onInput="abgabe.value=value" name="abgabe2" value="'.$data['abgabe'].'">
 <output name="abgabe"></output>&nbsp;&nbsp;Falls du Opera nutzt, kannst du das Datum ausw&auml;hlen.</td></tr>';
-echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="javascript:NeuerTag(); return false;">Neu</a>]:</td><td>';
 tagliste($data['dayid']);
 echo'</td></tr>';
 
