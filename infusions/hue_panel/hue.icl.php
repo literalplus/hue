@@ -18,7 +18,7 @@ if(!defined('HUE')){
 	define('HUE',INFUSIONS."hue_panel/");
 }
 if(!defined('HUE_VERSION')){
-	define('HUE_VERSION',"0.1 Open BETA");
+	define('HUE_VERSION',"0.1");
 }
 if(!defined('HUE_IMAGES')){
 	define('HUE_IMAGES',HUE."images/");
@@ -143,7 +143,7 @@ function navi_hue($site=1)
  function footer_hue($showtxt=true){
  global $_SERVER,$v,$settings;
  
- echo'<!--HÜ (C) by xxyy - http://blacktigers.bplaced.net/ !-->';
+ echo'<!--HÜ v0.1 (C) by xxyy - http://blacktigers.bplaced.net/ !-->';
  //Einstellungen
 $hue=array();
 $result=dbquery("SELECT * FROM ".DB_HUE_SETTINGS,false);
