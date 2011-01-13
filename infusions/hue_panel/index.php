@@ -73,7 +73,7 @@ $fach=dbquery("SELECT name FROM ".DB_HUE_FACH." WHERE kurz='".$data['fach']."'")
 $fach=mysql_fetch_array($fach);
 $fach=$fach[0];
 if($data['typ']=="hu"){
-	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;"  /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
+	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;"  /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
 $hc++;
 	} else {
 	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.'  bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
