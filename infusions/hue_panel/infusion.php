@@ -34,7 +34,7 @@ if (file_exists(INFUSIONS.$infusion_folder."/locale/".$settings['locale'].".php"
 // Infusion general information
 $inf_title = /*$locale['hue_title']*/"H&Uuml;"; // Your Infusion's Titel
 $inf_description = "Infusion zur Verwaltung von Haus&Uuml;bungen."; // Description of your Infusion
-$inf_version = "0.1 DEV"; // Your Infusion's Version
+$inf_version = "0.1 final"; // Your Infusion's Version
 $inf_developer = "xxyy"; // Your Name
 $inf_email = "supertux22@gmail.com"; // Your E-Mail
 $inf_weburl = "http://blacktigers.bplaced.net/"; // Your Website

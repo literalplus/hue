@@ -20,47 +20,31 @@ require_once TEMPLATES."header.php";
 require_once "hue.icl.php";
 if(!isset($_GET['page'])){
 $_GET['page']="klasse";
-$_GET['klasse']="1";
 }
 
-/*if(!isset($_GET['page'])){
-navi_hue();
-add_to_title(" - Haus&uuml;bungsinformationssystem");
-opentable("Haus&uuml;bungsinformationssystem");*/
-/*echo'Verf&uuml;gbare Klassen:<br />';
-//Klassen
-
-$result=dbquery("SELECT * FROM ".DB_HUE_KLASSEN,false);
-if(!dbrows($result)) { die("<div style='font-family:Verdana;font-size:11px;text-align:center;'><strong>Klassen konnten nicht geladen werden!<br />'Klassen' could not been loaded!</strong><br />".mysql_errno()." : ".mysql_error()."</div>"); }
-while ($data = dbarray($result)) {
-	echo'<a href="index.php?page=klasse&klasse='.$data['id'].'" title="Klasse anzeigen:'.$data['name'].'">'.$data['name'].'</a><br />';
-}
-//ende Klassen
-
-echo'<br />';
-
-closetable();
-footer_hue();
-}
-else
-{*/
 switch ($_GET['page']) {
 case "klasse":
-$klasse=(isset($_GET['klasse'])) ? $_GET['klasse'] : "0";
+$db1="SELECT id FROM ".DB_HUE_KLASSEN." ORDER BY id";
+$db1=dbquery($db1);
+$db1=mysql_fetch_array($db1);
+$klasse=(isset($_GET['klasse'])) ? $_GET['klasse'] : $db1[0];
+//$klasse=$_GET['klasse'];
 navi_hue();
 
 
 add_to_title(" - Haus&uuml;bungsinformationssystem");
 opentable("Haus&uuml;bungsinformationssystem");
 echo'<table class="noborder" cellpadding="0" cellspacing="0" width="100%"><tr>';
-$db=dbquery("SELECT * FROM ".DB_HUE_KLASSEN);
+$db=dbquery("SELECT * FROM ".DB_HUE_KLASSEN." ORDER BY id");
+$kcount=0;
 while($data= dbarray($db)){
 $cellcol=($_GET['klasse']==$data['id']) ? "tbl1" : "tbl2";
-if(!isset($_GET['klasse']) && $data['id']==0){
+if(!isset($_GET['klasse']) && $kcount==0){
 $cellcol="tbl1";
-$klasse=0;
+$klasse=$data['id'];
 }
 echo'<td class="'.$cellcol.'"><a href="'.HUE.'index.php?page=klasse&klasse='.$data['id'].'">'.$data['name'].'</a></td>';
+$kcount++;
 }
 echo'</tr></table>';
 
@@ -89,10 +73,10 @@ $fach=dbquery("SELECT name FROM ".DB_HUE_FACH." WHERE kurz='".$data['fach']."'")
 $fach=mysql_fetch_array($fach);
 $fach=$fach[0];
 if($data['typ']=="hu"){
-	echo'<tr'/* bgcolor="'.$color.'"*/.'><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$fach.'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
+	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;"  /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
 $hc++;
 	} else {
-	echo'<tr'/* bgcolor="'.$color.'"*/.'><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$data['fach'].'  bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
+	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.'  bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
 $ac++;
 	}
 }
@@ -123,7 +107,7 @@ while($data = dbarray($sql)){
 
 
 	opentable(getfach($data['fach'])."-Haus&uuml;bung f&uuml;r den Tag ".getday($data['dayid']));
-	echo "<!--ank_poster --><div class='floatfix'>".$data['hue']."</div>
+	echo "<!--hue_poster --><div class='floatfix'>".$data['hue']."</div>
 	<div class='news-footer'>
 		";
 			

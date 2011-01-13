@@ -165,7 +165,7 @@ while ($data = dbarray($result)) {
  echo'<div style="text-align:left;">';
 //Entfernen dieses Copyright-Hinweises ist ohne gültige Lizenz strafbar! aber in den Einstellungen möglich und legal!
 //echo'<a href="http://blacktigers.bplaced.net/" title="H&Uuml; v'.$v.' wurde entwickelt von xxyy und optimiert f&uuml;r Mozilla Firefox.">&#187;</a><br />';
-echo "<div class='main-body'><a href='http://blacktigers.bplaced.net/' target='_blank' title=\"cssbody=[tbl1] cssheader=[tbl2] fade=[on] fadespeed=[0.04] header=[<img src='".HUE."images/info.png' /><b>H&Uuml; v.".HUE_VERSION."</b>] body=[H&Uuml; wurde entwickelt von xxyy.<br />H&Uuml; wurde optimiert f&uuml;r Mozilla Firefox 3.6.<br /><!--Auf dieser Seite wurden teilweise Grafiken von <a href='http://www.famfamfam.com/'>http://www.famfamfam.com/</a> verwendet.<br />!-->".$browser."]\"><span class='small'>&#187;</span></a>";
+echo "<div class='main-body'><a href='http://blacktigers.bplaced.net/' target='_blank' title=\"cssbody=[tbl1] cssheader=[tbl2] fade=[on] fadespeed=[0.06] header=[<img src='".HUE."images/info.png' /><b>H&Uuml; v.".HUE_VERSION."</b>] body=[H&Uuml; wurde entwickelt von xxyy.<br />H&Uuml; wurde optimiert f&uuml;r Mozilla Firefox 3.6.<br /><!--Auf dieser Seite wurden teilweise Grafiken von <a href='http://www.famfamfam.com/'>http://www.famfamfam.com/</a> verwendet.<br />!-->".$browser."]\"><span class='small'>&#187;</span></a>";
 if($showtxt) echo "<br />".$settings['sitename']." garantiert nicht f&uuml;r die Richtigkeit und/oder das Vorhandensein der Informationen.Alle Angaben ohne Gew&auml;hr. F&uuml;r die eingesendete Haus&uuml;bungsinformation ist alleine der einsendende User verantwortlich.";
 //ende mit Lizenz
 //Ab hier ist das Entfernen strafbar(auch mit Lizenz)!
