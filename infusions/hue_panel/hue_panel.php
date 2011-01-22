@@ -1,6 +1,4 @@
 <?php
-require_once "../../maincore.php";
-require_once "../../themes/templates/header.php";
 require_once "hue.icl.php";
 add_to_head('<script type="text/javascript" language="javascript">
  
@@ -64,5 +62,4 @@ echo'<noscript><span style="color:red; font-decoration:bold; text-align:center;"
 Bitte aktiviere es oder downloade die neueste Version deines Browsers.<br />
 Dieses Panel ist kann mit Textbrowsern leider nicht verwendet werden.</span></noscript>';
 closeside();
-require_once TEMPLATES."footer.php";
 ?>
