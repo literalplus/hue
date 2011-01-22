@@ -39,7 +39,7 @@ $db=dbquery("SELECT * FROM ".DB_HUE_KLASSEN." ORDER BY id");
 $kcount=0;
 while($data= dbarray($db)){
 $cellcol=($klasse==$data['id']) ? "tbl1" : "tbl2";
-if(!isset($_GTE['klasse']) && $kcount==0){
+if(!isset($_GET['klasse']) && $kcount==0){
 $cellcol="tbl1";
 $klasse=$data['id'];
 }
@@ -48,53 +48,8 @@ $kcount++;
 }
 echo'</tr></table>';
 
-//HÜ
-$dayc=0;
+showhuelist($klasse);
 
-$dayresult=dbquery("SELECT * FROM ".DB_HUE_TAG." WHERE kl='".$klasse."' ORDER BY id DESC");
-while ($day = dbarray($dayresult)) {
-$dayc++;
-if($day['name']==date("d.m.y")){
-$heute=" [HEUTE] ";
-} else {
-$heute="";
-}
-if(iHUE) $heute .= " [<a href='nohue.php?kl=".$klasse."&day=".$day['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>Keine Haus&uuml;bung?</a>]";
-if(iHUE) $heute .= " [<a href='newtag.php?delete=true&day=".$day['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>L&ouml;schen</a>]";
-echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>\n<tr><td style='text-align:center;'><strong>".$day['name'].$heute."</strong></td></tr>";
-echo "<tr><td><table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>\n";
-echo "<tr><td></td><td><strong>Fach</strong></td><td><strong>H&Uuml;(Kurzfassung)</strong></td><td><strong>Abgabetermin</strong></td></tr>";
-$hc=0;
-$ac=0;
-$result=dbquery("SELECT * FROM ".DB_HUE." WHERE status='1' AND dayid=".$day['id']."");
-while ($data = dbarray($result)) {
-$cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
-$fach=dbquery("SELECT name FROM ".DB_HUE_FACH." WHERE kurz='".$data['fach']."'");
-$fach=mysql_fetch_array($fach);
-$fach=$fach[0];
-if($data['typ']=="hu"){
-	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;"  /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
-$hc++;
-	} else {
-	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.'  bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
-$ac++;
-	}
-}
-if($hc==0 && $ac==0){
-if($day['nohue']==1 || $day['name'] != date("d.m.y")){
-echo'</table></td></tr><tr class="tbl1"><td><div class="text-align:center">Heute, '.$day['name'].' keine Haus&uuml;bung f&uuml;r die Klasse '.getkl($klasse).'!!!</div></td></tr>';
-} else echo'</table></td></tr><tr class="tbl1"><td><div class="text-align:center">Bis jetzt sind f&uuml;r den Tag '.$day['name'].' noch keine Haus&uuml;bungsinformationen verf&uuml;gbar, dies kann sich allerdings im Laufe des Tages noch &auml;ndern, deswegen &uuml;berpr&uuml;fe den Stand der Haus&uuml;bungen sp&auml;ter noch einmal.</div></td></tr>';
-echo "</td></tr></table><br />";
-} else {
-echo "</table></td></tr></table><br />
-<div class='small' style='text-align:right'>".$hc." Haus&uuml;bungsinformation(en), ".$ac." Ank&uuml;ndigung(en)";
-}
-}
-//ende HÜ
-
-if($dayc==0){
-echo "<center><strong><font color='maroon'>Keine Tage vorhanden! Sende eine Haus&uuml;bungsinformation ein und klicke bei Tag auf [Neu], um einen Tag zu erstellen.</font></strong></center>";
-}
 footer_hue();
 closetable();
 
@@ -185,10 +140,10 @@ add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung einsenden");
 opentable("Haus&uuml;bung einsenden");
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>
 <form name='inputform' action='index.php?page=send' method='post'>";
-echo'<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+echo'<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="NeueKlasse(); return false">Neu</a>]:</td><td>';
 klassenliste();
 echo'</td></tr>';
-echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="NeuesFach(); return false">Neu</a>]:</td><td>';
 fachliste();
 echo'</td></tr>
 <tr class="tbl2"><td>H&Uuml;:</td><td><textarea name="hue" rows="5" cols="60" class="textbox"></textarea></td></tr>
@@ -201,12 +156,9 @@ echo'</td></tr>
 
 echo'<tr class="tbl1"><td>Abgabetermin(YYYY-MM-DD):</td><td><input class="textbox" type="date" min="2010" max="3000" value="'.date("Y-m-d").'" onInput="abgabe.value=value" name="abgabe2">
 <output name="abgabe"></output>&nbsp;&nbsp;Falls du Opera nutzt, kannst du das Datum ausw&auml;hlen.</td></tr>';
-echo'<tr class="tbl2"><td>Tag[<a href="javascript:NeuerTag();">Neu</a>]:</td><td><select name="dayid" size="3" class="textbox">';
-$result2=dbquery("SELECT * FROM ".DB_HUE_TAG);
-while ($data = dbarray($result2)) {
-	echo'<option label="'.$data['name'].'" value="'.$data['id'].'">'.$data['name'].'</option>';
-}
-echo'</select></td></tr>';
+echo'<tr class="tbl2"><td>Tag[<a href="newtag.php" target="_blank" onclick="NeuerTag(); return false">Neu</a>]:</td><td>';
+tagliste();
+echo'</td></tr>';
 $name=(isset($userdata['user_name'])) ? $userdata['user_name'] : "";
 $disable=(iMEMBER) ? " readonly='readonly'" : "";
 $id=(iMEMBER) ? $userdata['user_id'] : 0;

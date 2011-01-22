@@ -43,7 +43,7 @@ while ($data = dbarray($result)) {
 $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
 $fach=getfach($data['fach']);
 if($data['typ']=="hu"){
-	echo'<tr><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen"><img src="images/hu.png" alt="H&Uuml;" /></td><td class="'.$cell_color.'">'.$fach.'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
+	echo'<tr><td class="'.$cell_color.'"><a href="'.HUE.'index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen"><img src="'.HUE.'images/hu.png" alt="H&Uuml;" /></td><td class="'.$cell_color.'">'.$fach.'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
 $hc++;
 	} else {
 	echo'<tr><td class="'.$cell_color.'"><a href="'.HUE.'index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';

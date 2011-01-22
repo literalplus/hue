@@ -49,7 +49,7 @@ echo'<div style="text-align:right;"><select size="1" name="hueselect" id="huesel
 echo'<option value="kl" selected="selected">Bitte Klasse ausw&auml;hlen</option>';
 $db=dbquery("SELECT * FROM ".DB_HUE_KLASSEN." ORDER BY id");
 while($data = dbarray($db)){
-echo'<option value="hue_panel_sk.php?kl='.$data['id'].'">'.$data['name'].'</option>';
+echo'<option value="'.HUE.'hue_panel_sk.php?kl='.$data['id'].'">'.$data['name'].'</option>';
 }
 echo'</select></div><script type="text/javascript">
 if(getElementById("select").value != "kl"){

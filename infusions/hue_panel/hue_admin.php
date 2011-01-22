@@ -189,10 +189,10 @@ add_to_title("Haus&uuml;bungsinformationssystem&#187;Ank&uuml;ndigung einsenden"
 opentable("Ank&uuml;ndigung einsenden");
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>
 <form name='inputform' action='hue_admin.php".$aidlink."&page=send' method='post'>";
-echo'<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+echo'<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="NeueKlasse(); return false">Neu</a>]:</td><td>';
 klassenliste();
 echo'</td></tr>';
-echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="NeuerTag(); return false">Neu</a>]:</td><td>';
 fachliste();
 echo'</td></tr>
 <tr class="tbl2"><td>Ank&uuml;ndigung:</td><td><textarea name="hue" rows="5" cols="60" class="textbox"></textarea></td></tr>
@@ -205,7 +205,7 @@ echo'</td></tr>
 
 echo'<tr class="tbl2"><td>Abgabetermin(YYYY-MM-DD):</td><td><input class="textbox" type="date" min="2010" max="3000" value="'.date("Y-m-d").'" onInput="abgabe.value=value" name="abgabe2">
 <output name="abgabe"></output>&nbsp;&nbsp;Falls du Opera nutzt, kannst du das Datum ausw&auml;hlen.</td></tr>';
-echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]:</td><td>';
+echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="NeuerTag(); return false">Neu</a>]:</td><td>';
 tagliste();
 echo'</td></tr>';
 echo'<tr class="tbl2"><td>Optionen:</td><td><input type="checkbox" name="comments" value="1" checked="checked" />Kommentare erlauben?<br />
@@ -252,14 +252,15 @@ navi_admin(3.1);
 opentable("Tage verwalten");
 echo'Hier kannst du die erstellten Tage verwalten.';
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>";
-echo '<tr><td style="text-align:center;">erstellte Tage:[<a href="newtag.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]</td><td style="text-align:center;">Klasse</td><td style="text-align:center;">Optionen</td></tr>';
+echo '<tr><td style="text-align:center;">erstellte Tage:[<a href="newtag.php" target="_blank" onclick="NeuerTag(); return false">Neu</a>]</td><td style="text-align:center;">Klasse</td><td style="text-align:center;">Optionen</td></tr>';
 $result=dbquery("SELECT * FROM ".DB_HUE_TAG."");
 $dc=0;
 $i=0;
 while ($data = dbarray($result)){
 $dc++;
 $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
-echo'<tr class="'.$cell_color.'"><td>'.$data['name'].'</td><td>'.$data['kl'].'</td><td>'."[<a href='newtag.php?delete=true&day=".$data['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>L&ouml;schen</a>]</td></tr>";
+newpopup(HUE."newtag.php?delete=true&day=".$data['id'],"del_".$data['id'],"Tag l&ouml;schen");
+echo'<tr class="'.$cell_color.'"><td>'.$data['name'].'</td><td>'.$data['kl'].'</td><td>'."[<a href='newtag.php?delete=true&day=".$data['id']."' target='_blank' onclick='del_".$data['id']."(); return false'>L&ouml;schen</a>]</td></tr>";
 }
 if($dc==0){
 echo'<tr><td>Keine Tage in der DB vorhanden!</td><td></td><td></td></tr>';
