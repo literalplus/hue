@@ -301,7 +301,7 @@ if($day['id']==$select){
 }
 echo'</select>';
 }
-function showhuelist($klassen=false,$where=""){
+function showhuelist($klassen=false,$where="",$admin=false){
 //HÜ
 $db1="SELECT id FROM ".DB_HUE_KLASSEN." ORDER BY id";
 $db1=dbquery($db1);
@@ -338,11 +338,16 @@ $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
 $fach=dbquery("SELECT name FROM ".DB_HUE_FACH." WHERE kurz='".$data['fach']."'");
 $fach=mysql_fetch_array($fach);
 $fach=$fach[0];
-if($data['typ']=="hu"){
-	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;"  /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
+if($data['status']=="0" && $data['typ'] == "hu" && $admin==true){
+	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</tr>';
+} elseif($data['status']=="0" && $data['typ'] == "ank" && $admin==true){
+	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="a" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&pgae=huea">L&ouml;schen</a>]</tr>';
+
+	} elseif($data['typ']=="hu"){
+	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;"  /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
 $hc++;
 	} else {
-	echo'<tr'/* bgcolor="'.$color.'"*/.' style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.'  bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
+	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.'  bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
 $ac++;
 	}
 }
