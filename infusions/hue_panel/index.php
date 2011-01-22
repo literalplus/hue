@@ -38,8 +38,8 @@ echo'<table class="noborder" cellpadding="0" cellspacing="0" width="100%"><tr>';
 $db=dbquery("SELECT * FROM ".DB_HUE_KLASSEN." ORDER BY id");
 $kcount=0;
 while($data= dbarray($db)){
-$cellcol=($_GET['klasse']==$data['id']) ? "tbl1" : "tbl2";
-if(!isset($_GET['klasse']) && $kcount==0){
+$cellcol=($klasse==$data['id']) ? "tbl1" : "tbl2";
+if(!isset($_GTE['klasse']) && $kcount==0){
 $cellcol="tbl1";
 $klasse=$data['id'];
 }
