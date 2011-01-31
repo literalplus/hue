@@ -16,11 +16,6 @@
 require_once "../../maincore.php";
 require_once TEMPLATES."admin_header.php";
 require_once INFUSIONS."hue_panel/hue.icl.php";
-echo'<!--lightwindow-->';
-echo'<script type="text/javascript" src="'.HUE.'includes/lightwindow/javascript/prototype.js"></script>
-<script type="text/javascript" src="'.HUE.'includes/lightwindow/javascript/scriptaculous.js?load=effects"></script>
-<script type="text/javascript" src="'.HUE.'includes/lightwindow/javascript/lightwindow.js"></script>
-<link rel="stylesheet" href="'.HUE.'includes/lightwindow/css/lightwindow.css" type="text/css" media="screen" />';
 // Load Definitions
 
 
@@ -289,7 +284,7 @@ echo'<div class="admin-message" id="close-message">Haus&uuml;bungsinformation er
 }
 opentable("Haus&uuml;bungsinformationen und Ank&uuml;ndigungenen verwalten");
 echo'Hier kannst du die erstellten Haus&uuml;bungsinformationen und Ank&uuml;ndigungen verwalten.';
-//HÜ
+/*//HÜ
 $dayc=0;
 
 $dayresult=dbquery("SELECT * FROM ".DB_HUE_TAG."");
@@ -309,9 +304,9 @@ $result=dbquery("SELECT * FROM ".DB_HUE." WHERE dayid=".$day['id']."");
 while ($data = dbarray($result)) {
 $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
 if($data['status']=="0" && $data['typ'] == "hu"){
-	echo'<tr'/* bgcolor="'.$color.'"*/.'><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</tr>';
+	echo'<tr><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</tr>';
 } elseif($data['status']=="0" && $data['typ'] == "ank"){
-	echo'<tr'/* bgcolor="'.$color.'"*/.'><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="a" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&pgae=huea">L&ouml;schen</a>]</tr>';
+	echo'<tr><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="a" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&pgae=huea">L&ouml;schen</a>]</tr>';
 
 	} elseif($data['typ']=="hu"){
 	echo'<tr><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</td></tr>';
@@ -337,7 +332,9 @@ echo "</table></td></tr></table><br />
 
 if($dayc==0){
 echo "<center><strong><font color='maroon'>Keine Tage vorhanden!Klicke bei Tage verwalten auf [Neu], um einen Tag zu erstellen.</font></strong></center>";
-}
+}*/
+showhuelist(false,"",true);
+
 closetable();
 break;
 case "klasse":
