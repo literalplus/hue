@@ -60,12 +60,13 @@ if(checkgroup($hue['mods']) || checkrights("HUE")){
 
 // deaktiviert
 if($hue['on']==0 && !checkrights("HUE") && !isset($nooff)){
-	add_to_title(" - Haus&uuml;bungsinformation&#187;Mitteilung");
+/*	add_to_title(" - Haus&uuml;bungsinformation&#187;Mitteilung");
 	openside("Haus&uuml;bungsinformationssystem deaktiviert");
 	echo "Im Moment ist das Haus&uuml;bungsinformationssystem deaktiviert.";
 	echo "<a href=".BASEDIR." title=".BASEDIR.">Zur&uuml;ck zur Hauptseite</a>";
 	closeside();
-	require_once THEMES."templates/footer.php";
+	require_once THEMES."templates/footer.php";*/
+	redirect("cmd.php?wartung=true");
 	die();
 } elseif($hue['on']==0&&checkrights("HUE") && !isset($nooff)){
 	echo'<div class="admin-message" id="hue_wartung">H&Uuml; ist im Wartungsmodus!</div>';
