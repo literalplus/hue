@@ -13,6 +13,7 @@
 | at www.gnu.org/licenses/agpl.html. Removal of this copyright header is
 | strictly prohibited without written permission from the original author(s).
 +---------------------------------------------------------------------------*/
+//set-settings,sende-edit einsenden,hue - HÜ erstellen,ank - ANK erstellen,edit - edit,send - ank senden,day - tage verwalten,ues - Usereinsendungen,huea - hü/as verwalten,klasse - klassen,fach - fächer
 require_once "../../maincore.php";
 require_once TEMPLATES."admin_header.php";
 require_once INFUSIONS."hue_panel/hue.icl.php";
@@ -284,55 +285,6 @@ echo'<div class="admin-message" id="close-message">Haus&uuml;bungsinformation er
 }
 opentable("Haus&uuml;bungsinformationen und Ank&uuml;ndigungenen verwalten");
 echo'Hier kannst du die erstellten Haus&uuml;bungsinformationen und Ank&uuml;ndigungen verwalten.';
-/*//HÜ
-$dayc=0;
-
-$dayresult=dbquery("SELECT * FROM ".DB_HUE_TAG."");
-while ($day = dbarray($dayresult)) {
-$dayc++;
-if($day['name']==date("d.m.y")){
-$heute=" [HEUTE] ";
-} else $heute="";
-if(iHUE) $heute .= " [<a href='nohue.php?day=".$day['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>Keine Haus&uuml;bung?</a>]";
-if(iHUE) $heute .= " [<a href='newtag.php?delete=true&day=".$day['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>L&ouml;schen</a>]";
-echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>\n<tr><td style='text-align:center;'><strong>".$day['name'].$heute."</strong></td></tr>";
-echo "<tr><td><table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>\n";
-echo "<tr><td></td><td><strong>Fach</strong></td><td><strong>H&Uuml;(Kurzfassung)</strong></td><td><strong>Abgabetermin</strong></td><td><strong>Optionen</strong></td></tr>";
-$hc=0;
-$ac=0;
-$result=dbquery("SELECT * FROM ".DB_HUE." WHERE dayid=".$day['id']."");
-while ($data = dbarray($result)) {
-$cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
-if($data['status']=="0" && $data['typ'] == "hu"){
-	echo'<tr><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</tr>';
-} elseif($data['status']=="0" && $data['typ'] == "ank"){
-	echo'<tr><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="a" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&pgae=huea">L&ouml;schen</a>]</tr>';
-
-	} elseif($data['typ']=="hu"){
-	echo'<tr><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</td></tr>';
-$hc++;
-	} else {
-	echo'<tr><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</td></tr>';
-$ac++;
-	}
-}
-if($hc==0 && $ac==0){
-if($day['nohue']==1){
-echo'</table></td></tr><tr class="tbl1"><td style="text-align:center;">Am Tag '.$day['name'].' keine Haus&uuml;bung!!!</td></tr>';
-}elseif($day['name'] != date("d.m.y")){
-echo'</table></td></tr><tr class="tbl1"><td style="text-align:center;">F&uuml;r den Tag '.$day['name'].' sind noch keine Haus&uuml;bungen eingetragen.</td></tr>';
-} else echo'</table></td></tr><tr class="tbl1"><td style="text-align:center;">Bis jetzt sind f&uuml;r den Tag '.$day['name'].' noch keine Haus&uuml;bungsinformationen verf&uuml;gbar, dies kann sich allerdings im Laufe des Tages noch &auml;ndern, deswegen &uuml;berpr&uuml;fe den Stand der Haus&uuml;bungen sp&auml;ter noch einmal.</td></tr>';
-echo "</table><br />";
-} else {
-echo "</table></td></tr></table><br />
-<div class='small' style='text-align:right'>".$hc." Haus&uuml;bungsinformation(en), ".$ac." Ank&uuml;ndigung(en)";
-}
-}
-//ende HÜ
-
-if($dayc==0){
-echo "<center><strong><font color='maroon'>Keine Tage vorhanden!Klicke bei Tage verwalten auf [Neu], um einen Tag zu erstellen.</font></strong></center>";
-}*/
 showhuelist(false,"",true);
 
 closetable();
@@ -377,12 +329,6 @@ echo'<tr><td><div class="color:maroon">Keine Klassen in der DB vorhanden!Bitte l
 }
 echo'</table>';
 
-closetable();
-break;
-case "ues":
-navi_admin(3);
-opentable("Usereinsendungen verwalten");
-echo'Bitte w&auml;hle oben, was du verwalten willst!';
 closetable();
 }
 }
