@@ -1,0 +1,83 @@
+####################################
+## Hue Hausuebungsinformationssystem
+## für PiF v0.09.03
+## Commasy Modul folgt
+## .htaccess fuer SEO
+####################################
+
+
+####################
+# Rewrite Engine
+#
+RewriteEngine on
+
+####################
+# Rewrite-Base
+# If you are running this script in your root-folder:
+# RewriteBase /
+# If you are NOT running this script in your root-folder, but in a sub folder:
+# RewriteBase /your_folder/
+# Bitte PiF-Pfad angeben!
+#
+RewriteBase /
+
+
+
+##############
+## Rewrites ##
+##############
+
+###########
+## Index ##
+###########
+
+
+RewriteRule ^hue/klasse.html$ infusions/hue_panel/index.php [L]
+RewriteRule ^hue/hue-([0-9]{1,15}).html$ infusions/hue_panel/index.php?page=hue&hue=$1 [L]
+RewriteRule ^hue/ank-([0-9]{1,15}).html$ infusions/hue_panel/index.php?page=ank&ank=$1 [L]
+RewriteRule ^hue/einsenden.html$ infusions/hue_panel/index.php?page=einsenden [L]
+RewriteRule ^hue/absenden.html$ infusions/hue_panel/index.php?page=send [L]
+
+###########
+## Admin ##
+###########
+
+RewriteRule ^hue/admin/index.html$ infusions/hue_panel/hue_admin.php [L]
+RewriteRule ^hue/admin/einstellungen.html$ infusions/hue_panel/hue_admin.php?page=set [L]
+
+## /edit
+
+RewriteRule ^hue/admin/edit/senden.html$ infusions/hue_panel/hue_admin.php?page=sende [L]
+RewriteRule ^hue/admin/edit/index.html$ infusions/hue_panel/hue_admin.php?page=edit [L]
+
+## /erstellen
+
+RewriteRule ^hue/admin/erstellen/hue.html$ infusions/hue_panel/hue_admin.php?page=hue [L]
+RewriteRule ^hue/admin/erstellen/ank.html$ infusions/hue_panel/hue_admin.php?page=ank [L]
+
+## /verwalten
+
+RewriteRule ^hue/admin/verwalten/tage.html$ infusions/hue_panel/hue_admin.php?page=day [L]
+RewriteRule ^hue/admin/verwalten/index.html$ infusions/hue_panel/hue_admin.php?page=ues [L]
+RewriteRule ^hue/admin/verwalten/hue-ank.html$ infusions/hue_panel/hue_admin.php?page=huea [L]
+RewriteRule ^hue/admin/verwalten/klassen.html$ infusions/hue_panel/hue_admin.php?page=klasse [L]
+RewriteRule ^hue/admin/verwalten/faecher.html$ infusions/hue_panel/hue_admin.php?page=fach [L]
+
+###############
+## Meldungen ##
+###############
+
+## Wartung
+
+RewriteRule ^hue/meldungen/wartung.html$ infusions/hue_panel/cmd.php?wartung=true [L]
+
+###############
+## HÜ Mobile ##
+###############
+
+## coming soon
+
+
+
+
+##############
