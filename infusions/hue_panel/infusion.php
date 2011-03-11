@@ -104,6 +104,7 @@ $inf_insertdbrow[1] = DB_PANELS." SET panel_name='H&Uuml;-Panel', panel_filename
 $inf_insertdbrow[2] = DB_HUE_SETTINGS." SET hue_set_name='on',hue_set='0' ";
 $inf_insertdbrow[3] = DB_HUE_SETTINGS." SET hue_set_name='showcopy',hue_set='1' ";
 $inf_insertdbrow[4] = DB_HUE_SETTINGS." SET hue_set_name='showbanner',hue_set='1' ";
+$inf_insertdbrow[12] = DB_HUE_SETTINGS." SET hue_set_name='seo',hue_set='0' ";
 $inf_insertdbrow[5] = DB_HUE_KLASSEN." SET name='Beispiel',id='1' ";
 $inf_insertdbrow[6] = DB_HUE_FACH." SET name='Mathematik',kurz='M' ";
 $inf_insertdbrow[7] = DB_HUE_FACH." SET name='Deutsch',kurz='D' ";

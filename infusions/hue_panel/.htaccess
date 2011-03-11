@@ -75,8 +75,13 @@ RewriteRule ^hue/meldungen/wartung.html$ infusions/hue_panel/cmd.php?wartung=tru
 ## HÜ Mobile ##
 ###############
 
-## coming soon
+## startpage
 
+RewriteRule ^hue_mobile/$ hue_mobile.php?page=home [L]
+
+## einsenden
+
+RewriteRule ^hue_mobile/einsenden/schritt-([0-9]{1,15}).html$ hue_mobile.php?page=einsenden&schritt=$1 [L]
 
 
 

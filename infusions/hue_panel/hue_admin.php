@@ -49,6 +49,49 @@ echo "<noscript><a href='http://blacktigers.bplaced.net/' target='_blank'><stron
 closetable();
 } else {
 switch ($_GET['page']) {
+case "seo":
+if(isset($_POST['submit'])){
+if($_POST['on'] != 'x'){
+$edit=dbquery("UPDATE ".DB_HUE_SETTINGS." SET hue_set='".$_POST['seo']."' WHERE hue_set_name='seo'");
+}
+}
+
+opentable("H&Uuml; SEO URL-Rewrite (mod_rewrite)");
+$error=true;
+if(MOD_REWRITE_ABLE) {
+echo "<div class='tbl2'>Wenn du SEO URL-Rewrite aktivierst, solltest du sicher sein, dass mod_rewrite auf deinem Webserver aktiviert ist, da sonst fast alle Seiten einen 404-Fehler ausgeben!<br />
+Du musst zuerst die .htaccess-Datei (infusions/hue_panel/.htaccess) einstellen, bevor du diese Funktion benutzen kannst!<br />
+</div><br /><br />";
+$error=false;
+} elseif(!file_exists(INFUSIONS."hue_panel/.htaccess")) {
+echo "<div class='tbl2'>Vorsicht Fehler!<br />
+Die .htaccess-Datei konnte im H&Uuml;-Verzeichnis nicht gefunden werden! Bitte lade sie (erneut) hoch. Wenn sie in deinem H&Uuml;-Paket nicht enthalten war, bitte downloade das Paket erneut.<br />
+Leider kannst du ohne .htaccess SEO-Url-Rewrite nicht aktivieren.</div><br /><br />";
+} else {
+echo "<div class='tbl2'>Vorsicht Fehler!<br />
+MOD_REWRITE scheint nicht aktiviert zu sein!<br />
+Bitte kontaktiere deinen Webhoster, ob es m&ouml;glich w&auml;re, MOD_REWRITE zu aktivieren, wenn du es ben&ouml;tigst.</div><br /><br />";
+}
+
+echo "<form name='seo' method='post' action='hue_admin.php?page=seo&aid=".iAUTH."'>\n";
+echo "<table cellpadding='0' cellspacing='0' width='500' class='center'>\n<tr>\n";
+echo "<td width='50%' class='tbl'>SEO URL-Rewrite aktivieren?</td>\n";
+echo "<td width='50%' class='tbl'><select name='seo' class='textbox'".(MOD_REWRITE_ABLE ? "" : " disabled='disabled'").">\n";
+echo "<option value='1'".($hue['seo'] == "1" ? " selected='selected'" : "").">Ja</option>\n";
+echo "<option value='0'".($hue['seo'] == "0" ? " selected='selected'" : "").">Nein</option>\n";
+echo "</select></td>\n";
+echo "</tr>\n<tr>\n";
+echo "<td align='center' colspan='2' class='tbl'><br />";
+if(!$error) {
+echo "<input type='submit' name='submit' value='Absenden!' class='button' />";
+} else {
+echo "<input type='submit' name='submit' value='Vorsicht, Fehler!' disabled='disabled' class='button' />";
+}
+echo "</td>\n";
+echo "</tr>\n</table>\n</form>\n";
+closetable();
+
+break;
 case "set":
 if(isset($_POST['submit'])){
 if($_POST['on'] != 'x'){
