@@ -54,25 +54,38 @@ if($day['id']==$select){
 	} else {
 	$dayselect .='<option label="'.$day['name'].'" value="'.$day['id'].'">'.$day['name'].'['.getkl($day['kl']).']</option>';
 	}
+	$dayc++;
 }
 if($dayc==0){
 
 echo'<div style="text-align: center; color: #eee; background-image: url(infusions/hue_panel/images/orange.png); border: 1px solid #555; padding: 5px; margin-bottom: 10px;">Keine Tage vorhanden! Bitte erstelle einen, um eine H&Uuml;info einzusenden.</div>';
 
-}
+} else {
+echo $dayselect;
 echo'</select>';
+}
   
   echo'<br /> <b>oder</b> </br /><input type="radio" name="dayselect" value="n" />neuen Tag erstellen: Name(YYYY-MM-DD):<input type="text" class="textbox" name="newday_a" /><br />';
   
-  echo'Klasse:<select name="newday_b" size="1" class="textbox"><optgroup label="Klassen:">';
+  echo'Klasse:';
+  $kls2='<select name="newday_b" size="1" class="textbox"><optgroup label="Klassen:">';
+  $kc2=0;
 $result=dbquery("SELECT * FROM ".DB_HUE_KLASSEN);
 while($data = dbarray($result)){
 
-	echo'<option label="'.$data['name'].'" value="'.$data['id'].'">'.$data['name'].'</option>';
-
+	$kls2 .='<option label="'.$data['name'].'" value="'.$data['id'].'">'.$data['name'].'</option>';
+$kc2++;
 }
 
+if($kc2==0){
+
+echo'<br /><div style="text-align: center; color: #eee; background-image: url(infusions/hue_panel/images/orange.png); border: 1px solid #555; padding: 5px; margin-bottom: 10px;">Keine Klassen vorhanden! Bitte erstelle eine, um eine H&Uuml;info einzusenden:<input type="text" class="textbox" name="newday_b2" placeholder="Name f&uuml;r die Klasse eingeben" /></div>';
+
+} else {
+echo $kls2;
+
 echo "</select>";
+}
   
   closeside();
   
@@ -144,13 +157,32 @@ opentable("H&Uuml; mobile: H&Uuml;info einsenden");
   die();
   
   } else {
+   if(!isset($_POST['newday_b'])){
+  $query=dbquery("INSERT INTO ".DB_HUE_KLASSEN." (name) VALUE('".$_POST['newday_b2']."')");
+  $query2=dbarray(dbquery("SELECT id FROM ".DB_HUE_KLASSEN." LIMIT 1 ORDER BY id"));
+  $newday_b=$query2[0];
+  } else {
+  
+  $newday_b=$_POST['newday_b'];
+  
+  }
   if($_POST['dayselect'] == "e"){
   echo'<input type="hidden" name="dayid" value="'.$_POST['dayid'].'" />';
   } else {
-  $query=dbquery("INSERT INTO ".DB_TAG." (name,kl,nohue) VALUES('".$_POST['newday_a']."','".$_POST['newday_b']."','0')");
-  
+  $query=dbquery("INSERT INTO ".DB_HUE_TAG." (name,kl,nohue) VALUES('".$_POST['newday_a']."','".$newday_b."','0')");
+  $query2=dbarray(dbquery("SELECT id FROM ".DB_HUE_TAG." LIMIT 1 ORDER BY id"));
+  echo'<input type="hidden" name="dayid" value="'.$query2[0].'" />';
   }
-//  if($_POST[
+ 
+  
+   if($_POST['fachselect'] == "e"){
+  echo'<input type="hidden" name="fach" value="'.$_POST['fach'].'" />';
+  } else {
+  $query=dbquery("INSERT INTO ".DB_HUE_FACH." (name,kurz) VALUES('".$_POST['newfach_a']."','".$_POST['newfach_b']."')");
+  $query2=dbarray(dbquery("SELECT id FROM ".DB_HUE_FACH." LIMIT 1 ORDER BY id"));
+  echo'<input type="hidden" name="fach" value="'.$query2[0].'" />';
+  }
+  
 }
   
  } else {
