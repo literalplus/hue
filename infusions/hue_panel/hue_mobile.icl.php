@@ -222,7 +222,7 @@ require_once THEMES."CityFusion/includes/functions.php";
   	echo "</tr></table>\n";
   
   echo"</td>";
-  echo "<td class='cap' width='50%' align='right'>".headerdate(2)."</td>";
+  echo "<td class='cap' width='50%' align='right'><span class='headerdate'>".date("j.n.Y")."&nbsp;&middot;&nbsp;".date("H:i:s")."</span></td>";
   echo "</td></tr></table>\n";
   # Logo
   echo "<table cellspacing='0' cellpadding='0' width='100%' class='openborder'>\n";
