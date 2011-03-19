@@ -65,7 +65,7 @@ echo $dayselect;
 echo'</select>';
 }
   
-  echo'<br /> <b>oder</b> </br /><input type="radio" name="dayselect" value="n" />neuen Tag erstellen: Name(YYYY-MM-DD):<input type="text" class="textbox" name="newday_a" /><br />';
+  echo'<br /> <b>oder</b> </br /><input type="radio" name="dayselect" value="n" />neuen Tag erstellen (YYYY-MM-DD):<input type="text" class="textbox" name="newday_a" placeholder="Name(YYYY-MM-DD)"/><br />';
   
   echo'Klasse:';
   $kls2='<select name="newday_b" size="1" class="textbox"><optgroup label="Klassen:">';
@@ -104,7 +104,7 @@ if($data['id']==$select){
 
 echo "</select>";
   
-  echo'<br /><b> oder</b><br /> <input type="radio" name="klselect" value="n" />neue Klasse erstellen:<br /><input type="text" class="textbox" name="newkl" />';
+  echo'<br /><b> oder</b><br /> <input type="radio" name="klselect" value="n" />neue Klasse erstellen:<br /><input type="text" class="textbox" name="newkl" placeholder="Name f&uuml;r die Klasse eingeben" />';
   closeside();
   
   openside("Fach festlegen");
@@ -121,7 +121,7 @@ if($data['id']==$select){
 }
 echo'</optgroup></select>';
   
-  echo'<br /> <b>oder</b> <br /><input type="radio" name="fachselect" value="n" />neues Fach erstellen:<br />Name:<input type="text" class="textbox" name="newfach_a" /><br />K&uuml;rzel:<input type="text" name="newfach_b" class="textbox" />';
+  echo'<br /> <b>oder</b> <br /><input type="radio" name="fachselect" value="n" />neues Fach erstellen:<br />Name:<input type="text" class="textbox" name="newfach_a" placeholder="Name f&uuml;r das Fach eingeben" /><br />K&uuml;rzel:<input type="text" name="newfach_b" class="textbox" />';
   closeside();
   
   openside("Absenden");
@@ -184,6 +184,15 @@ opentable("H&Uuml; mobile: H&Uuml;info einsenden");
   }
   
 }
+
+//Schritt 2
+openside("H&Uuml;-Text festlegen");
+echo'Hier kannst Du den H&Uuml;-Text eingeben. Dieser soll die Haus&uuml;bung beschreiben.<br />
+<i>Beispiel für eine Mathematik-Haus&uuml;bung:</i>Beispiel 567 a,b,c (Buch Seite 67) <br /><br />';
+echo'H&Uuml;-Text:<textarea name="hue" rows="5" cols="60" class="textbox"></textarea>
+<br />'.display_bbcodes("70%","hue","s2form");
+closeside();
+
   
  } else {
  
