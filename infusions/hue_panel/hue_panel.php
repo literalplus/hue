@@ -1,5 +1,12 @@
 <?php
+$nooff=true;
 require_once "hue.icl.php";
+
+if(defined("HUE_WARTUNG") && HUE_WARTUNG==true) {
+if(iHUE){
+echo'<div class="admin-message">H&Uuml; ist im Wartungsmodus</div>';
+}
+} else {
 add_to_head('<script type="text/javascript" language="javascript">
  
     var http_request = false;
@@ -62,4 +69,5 @@ echo'<noscript><span style="color:red; font-decoration:bold; text-align:center;"
 Bitte aktiviere es oder downloade die neueste Version deines Browsers.<br />
 Dieses Panel ist kann mit Textbrowsern leider nicht verwendet werden.</span></noscript>';
 closeside();
+}
 ?>
