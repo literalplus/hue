@@ -39,20 +39,26 @@ opentable("H&Uuml; mobile: H&Uuml;info einsenden");
   echo "</tr></table>\n";
   
   
-  echo'Willkommen beim mobilen H&Uuml;info-Einsendungs-Assistenten! Hier kannst du deine Haus&uuml;bungsinformation von einem mobilen Ger&auml;t aus einsenden.<br />';
+  echo'Willkommen beim mobilen H&Uuml;info-Einsendungs-Assistenten! Hier kannst du deine Haus&uuml;bungsinformation von einem mobilen Ger&auml;t aus einsenden.';
   echo'<form name="hm_1" action="'.hue_seo("hue_mobile.php?page=einsenden&schritt=2","hue/mobile/einsenden/schritt-2.html").'" method="post">';
-  
+  echo'<br />';
   openside("Tag festlegen");
   echo'<input type="radio" name="dayselect" value="e" checked="checked" />Existierenden Tag w&auml;hlen:<br />';/*.tagliste().'*/
   
-  echo'<select name="dayid" size="3" class="textbox">';
+  $dayselect='<select name="dayid" size="3" class="textbox">';
 $result2=dbquery("SELECT * FROM ".DB_HUE_TAG);
+$dayc=0;
 while ($day = dbarray($result2)) {
 if($day['id']==$select){
-	echo'<option label="'.$day['name'].'" value="'.$day['id'].'" checked="checked">'.$day['name'].'['.getkl($day['kl']).']</option>';
+	$dayselect .='<option label="'.$day['name'].'" value="'.$day['id'].'" checked="checked">'.$day['name'].'['.getkl($day['kl']).']</option>';
 	} else {
-	echo'<option label="'.$day['name'].'" value="'.$day['id'].'">'.$day['name'].'['.getkl($day['kl']).']</option>';
+	$dayselect .='<option label="'.$day['name'].'" value="'.$day['id'].'">'.$day['name'].'['.getkl($day['kl']).']</option>';
 	}
+}
+if($dayc==0){
+
+echo'<div style="text-align: center; color: #eee; background-image: url(infusions/hue_panel/images/orange.png); border: 1px solid #555; padding: 5px; margin-bottom: 10px;">Keine Tage vorhanden! Bitte erstelle einen, um eine H&Uuml;info einzusenden.</div>';
+
 }
 echo'</select>';
   
@@ -139,7 +145,7 @@ opentable("H&Uuml; mobile: H&Uuml;info einsenden");
   
   } else {
   if($_POST['dayselect'] == "e"){
-  echo'<input type="hidden" name="dayid" value="'.$_POST['dayid'].'"/>';
+  echo'<input type="hidden" name="dayid" value="'.$_POST['dayid'].'" />';
   } else {
   $query=dbquery("INSERT INTO ".DB_TAG." (name,kl,nohue) VALUES('".$_POST['newday_a']."','".$_POST['newday_b']."','0')");
   
