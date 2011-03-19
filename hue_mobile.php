@@ -1,4 +1,5 @@
 <?php
+$nooff=true;
 /*---------------------------------------------------------------------------+
 | Hausübungsinformationssystem HÜ
 | Copyright (C) 2010 - 2010 
@@ -38,7 +39,7 @@ opentable("H&Uuml; mobile: H&Uuml;info einsenden");
   echo "</tr></table>\n";
   
   
-  echo'Willkommen beim mobilen H&Uuml;info-Einsendungs-Assistenten! Hier kannst du deine Haus&uuml;bungsinformation von einem mobilen Ger&auml;t aus einsenden.';
+  echo'Willkommen beim mobilen H&Uuml;info-Einsendungs-Assistenten! Hier kannst du deine Haus&uuml;bungsinformation von einem mobilen Ger&auml;t aus einsenden.<br />';
   echo'<form name="hm_1" action="'.hue_seo("hue_mobile.php?page=einsenden&schritt=2","hue/mobile/einsenden/schritt-2.html").'" method="post">';
   
   openside("Tag festlegen");
@@ -144,6 +145,7 @@ opentable("H&Uuml; mobile: H&Uuml;info einsenden");
   
   }
 //  if($_POST[
+}
   
  } else {
  
