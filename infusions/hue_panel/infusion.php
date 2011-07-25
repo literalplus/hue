@@ -84,6 +84,7 @@ $inf_newtable[4] = DB_HUE_FACH." (
 id INT(10) UNSIGNED AUTO_INCREMENT,
 name TEXT NOT NULL,
 kurz TEXT NOT NULL,
+timestamp TEXT,
 PRIMARY KEY (id)
 ) ".ENGINE." ".CHARSET.";";
 
@@ -92,10 +93,20 @@ id INT(10) AUTO_INCREMENT,
 name TEXT NOT NULL,
 nohue INT(10) NOT NULL,
 kl INT(10) NOT NULL,
+monat INT(2),
+jahr INT(4),
+day INT(2),
+PRIMARY KEY (id)
+) ".ENGINE." ".CHARSET.";";
+
+$inf_newtable[5] = DB_HUE_ABGABE." (
+id INT(10) AUTO_INCREMENT,
+name TEXT NOT NULL,
 PRIMARY KEY (id)
 ) ".ENGINE." ".CHARSET.";";
 
 // Insert something in your tables:
+
 
 
 

@@ -337,14 +337,15 @@ navi_admin(3.3);
 opentable("Klassen verwalten");
 echo'Hier kannst du die erstellten Klassen verwalten.';
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>";
-echo '<tr><td style="text-align:center;">erstellte Klassen:[<a href="newkl.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]</td><td style="text-align:center;">Optionen</td></tr>';
+echo '<tr><td style="text-align:center;">erstellte Klassen:[<a href="newkl.php" target="_blank" onclick="NeueKlasse(); return false">Neu</a>]</td><td style="text-align:center;">Optionen</td></tr>';
 $result=dbquery("SELECT * FROM ".DB_HUE_KLASSEN."");
 $dc=0;
 $i=0;
 while ($data = dbarray($result)){
 $dc++;
 $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
-echo'<tr class="'.$cell_color.'"><td>'.$data['name'].'</td><td>'."[<a href='newkl.php?delete=true&kl=".$data['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>L&ouml;schen</a>]</td></tr>";
+newpopup(HUE."newkl.php?delete=true&kl=".$data['id'],"del_".$data['id'],"Klasse l&ouml;schen");
+echo'<tr class="'.$cell_color.'"><td>'.$data['name'].'</td><td>'."[<a href='newkl.php?delete=true&kl=".$data['id']."' target='_blank' onclick='del_".$data['id']."(); return false'>L&ouml;schen</a>]</td></tr>";
 }
 if($dc==0){
 echo'<tr><td><div class="color:maroon">Keine Klassen in der DB vorhanden!Bitte lege eine an, damit das Haus&uuml;bungsinformationssystem benutzbar ist!</div></td><td></td><td></td></tr>';

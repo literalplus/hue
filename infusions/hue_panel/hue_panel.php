@@ -50,8 +50,7 @@ add_to_head('<script type="text/javascript" language="javascript">
  
     }
 </script>');
-openside("Ausgabe??");
-/*echo'<select size="1" name="select" id="select"><option>Bitte Klasse ausw&auml;hlen</option><option value="hue_panel_sk.php?kl=1">Klasse Beispiel</option></select>*/
+openside("H&Uuml;-Panel");
 echo'<div style="text-align:right;"><select size="1" name="hueselect" id="hueselect" onchange="macheRequest(this.value);" class="textbox">';
 echo'<option value="kl" selected="selected">Bitte Klasse ausw&auml;hlen</option>';
 $db=dbquery("SELECT * FROM ".DB_HUE_KLASSEN." ORDER BY id");

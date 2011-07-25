@@ -14,7 +14,8 @@
 | strictly prohibited without written permission from the original author(s).
 +---------------------------------------------------------------------------*/
 require_once "../../maincore.php";
-require_once INFUSIONS."hue_panel/infusion_db.php";
+function add_to_head(){}
+require_once INFUSIONS."hue_panel/hue.icl.php";
 switch ($_GET['page']){
 case "comment":
 if(!isset($_GET['id'])) die('ID nicht angegeben!!');
@@ -23,7 +24,7 @@ $data=mysql_fetch_array($data);
 if($data[0]==""){
 echo'Keine zus&auml;tzlichen Anweisungen vorhanden.';
 } else {
-echo $data[0];
+echo huebb($data[0]);
 }
 break;
 }

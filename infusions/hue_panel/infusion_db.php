@@ -31,4 +31,7 @@ if (!defined("DB_HUE_FACH")) {
 if (!defined("DB_HUE_TAG")) {
 	define("DB_HUE_TAG", DB_PREFIX."hue_tag");
 }
+if (!defined("DB_HUE_ABGABE")) {
+	define("DB_HUE_ABGABE", DB_PREFIX."hue_abgabe");
+}
 ?>

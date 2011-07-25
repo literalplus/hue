@@ -7,8 +7,8 @@
 | based on PHP-Fusion CMS v7.01, Copyright (C) 2002 - 2009 Nick Jones
 | http://www.php-fusion.co.uk/
 +----------------------------------------------------------------------------+
-| Filename: index.php
-| Author:xxyy
+| Filename: cmd.php
+| Authors: Nick Jones (Digitanium),xxyy
 +----------------------------------------------------------------------------+
 | This program is released as free software under the Affero GPL license.
 | You can redistribute it and/or modify it under the terms of this license
