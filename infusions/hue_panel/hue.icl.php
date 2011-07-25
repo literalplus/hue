@@ -200,7 +200,7 @@ echo"<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'><tr>
 closeside();
 }
 function klassenliste($select=false){
-echo'<select name="klasse" size="1" class="textbox"><optgroup label="Klassen:">';
+echo'<select name="klassen" size="1" class="textbox"><optgroup label="Klassen:">';
 $result=dbquery("SELECT * FROM ".DB_HUE_KLASSEN);
 while($data = dbarray($result)){
 if($data['id']==$select){
@@ -212,7 +212,7 @@ if($data['id']==$select){
 echo'</optgroup></select>';
 }
 function fachliste($select=false){
-echo'<select name="fach" size="1" class="textbox"><optgroup label="F&auml;cher:">';
+echo'<select name="fachs" size="1" class="textbox"><optgroup label="F&auml;cher:">';
 $result2=dbquery("SELECT * FROM ".DB_HUE_FACH);
 while ($data = dbarray($result2)) {
 if($data['fach']==$select){

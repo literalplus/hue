@@ -141,12 +141,17 @@ add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung einsenden");
 opentable("Haus&uuml;bung einsenden");
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>
 <form name='inputform' action='index.php?page=send' method='post'>";
-echo'<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="NeueKlasse(); return false">Neu</a>]:</td><td>';
-klassenliste();
+echo'<tr class="tbl2"><td>Klasse:</td><td>';
+echo'<input type="radio" name="klasse" value="exists" />existierende Klasse w&auml;hlen:<br /><span id="exkl">';
+klassenliste();//klassen
+echo'</span><br /><input type="radio" name="klasse" value="new" />neue Klasse erstellen:<br />
+<span id="newkl">Name der Klasse:<input type="text" name="newkl_a" placeholder="Name der Klasse" class="textbox" /></span>';
 echo'</td></tr>';
-echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="NeuesFach(); return false">Neu</a>]:</td><td>';
-fachliste();
-echo'</td></tr>
+echo'<tr class="tbl1"><td>Fach:</td><td><input type="radio" name="fach" value="exists" />existierendes Fach w&auml;hlen:<br />';
+fachliste();//fachs
+echo'<br /><input type="radio" name="fach" value="new" />neues Fach erstellen:<br />
+Name des Fachs:<input type="text" name="fach_a" placeholder="Name des Fachs" class="textbox" /><br />
+K&uuml;rzel des Fachs:<input type="text" name="fach_b" placeholder="K&uuml;rzel des Fachs" class="textbox" /></td></tr>
 <tr class="tbl2"><td>H&Uuml;:</td><td><textarea name="hue" rows="5" cols="60" class="textbox"></textarea></td></tr>
 <tr class="tbl1"><td></td><td>'.display_bbcodes("70%","hue","inputform").'</td></tr>
 <tr class="tbl2"><td>H&Uuml;(Kurzfassung, maximal 140 Zeichen)</td><td><textarea id="hue_short" name="hue_short" class="textbox" rows="5" cols="60" maxleght="140" onKeyDown=\"textCounter(this,\'count_display_hue_short\',140);\" onKeyUp=\"textCounter(this,\'count_display_hue_short\',140);\"></textarea></td></tr>
@@ -179,8 +184,8 @@ echo'<br /><input type="hidden" name="free" value="1" />';
 echo'</td></tr>';
 
 if(isset($userdata['user_name'])){
-echo'<tr class="tbl2"><td>Gesch&uuml;tzt mit <a href="http://german-210644433597.spampoison.com"><img src="http://pics5.inxhost.com/images/sticker.gif" border="0" width="80" height="15"/></a></td><td><input type="submit" name="submit" value="Einsenden" class="button" /> oder <input type="reset" name="reset" value="Reset" class="button" /></td></tr>';
-} else echo'<tr class="tbl2"><td>Gesch&uuml;tzt mit <a href="http://german-210644433597.spampoison.com"><img src="http://pics5.inxhost.com/images/sticker.gif" border="0" width="80" height="15"/></a></td><td><span id="submitbutton"><input type="submit" value="Ich bin kein Spambot! " class="button" name="submit" /></span> oder <input type="reset" value="Reset" class="button" /></td></tr>';
+echo'<tr class="tbl2"><td>Gesch&uuml;tzt mit <a href="http://german-210644433597.spampoison.com"><img src="http://pics5.inxhost.com/images/sticker.gif" border="0" width="80" height="15" /></a></td><td><input type="submit" name="submit" value="Einsenden" class="button" /> oder <input type="reset" name="reset" value="Reset" class="button" /></td></tr>';
+} else echo'<tr class="tbl2"><td>Gesch&uuml;tzt mit <a href="http://german-210644433597.spampoison.com"><img src="http://pics5.inxhost.com/images/sticker.gif" border="0" width="80" height="15" /></a></td><td><span id="submitbutton"><input type="submit" value="Ich bin kein Spambot! " class="button" name="submit" /></span> oder <input type="reset" value="Reset" class="button" /></td></tr>';
 echo"</table></form>";
 footer_hue();
 closetable();
