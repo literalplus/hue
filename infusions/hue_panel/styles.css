@@ -1,0 +1,38 @@
+#hueforms {
+	
+}
+#hueforms .kl {
+	margin: 0px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.legend1{
+	background-color: #567C45;
+}
+
+.legend2{
+	background-color: #7C4040;
+	color: white;
+}
+
+.legend3{
+	background-color: #CCBC6C;
+}
+
+.huethead .nohuebox{
+	display: none;
+}
+.huethead:hover .nohuebox{
+	display: block;
+	border: 1px dashed black;
+}
+
+.huepopupcont .huebox{
+	display: none;
+}
+
+.huepopupcont:hover .huebox{
+	dispaly: block; 
+	border: 1px dashed black;
+}

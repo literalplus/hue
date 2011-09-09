@@ -13,7 +13,7 @@
 | at www.gnu.org/licenses/agpl.html. Removal of this copyright header is
 | strictly prohibited without written permission from the original author(s).
 +---------------------------------------------------------------------------*/
-if (!defined("PIMPED_FUSION")) { die("Access Denied"); }
+if (!defined("PHP_FUSION")) { die("Access Denied"); }
 
 // The folder in which the infusion resides.
 $infusion_folder = "hue_panel";
@@ -33,11 +33,11 @@ if (file_exists(INFUSIONS.$infusion_folder."/locale/".$settings['locale'].".php"
 
 // Infusion general information
 $inf_title = /*$locale['hue_title']*/"H&Uuml;"; // Your Infusion's Titel
-$inf_description = "Infusion zur Verwaltung von Haus&Uuml;bungen."; // Description of your Infusion
-$inf_version = "0.1 final"; // Your Infusion's Version
+$inf_description = "Infusion zur Verwaltung von Haus&Uuml;bungsinformationen."; // Description of your Infusion
+$inf_version = "0.2 dev"; // Your Infusion's Version
 $inf_developer = "xxyy"; // Your Name
-$inf_email = "supertux22@gmail.com"; // Your E-Mail
-$inf_weburl = "http://blacktigers.bplaced.net/"; // Your Website
+$inf_email = "xxyy98@gmail.com"; // Your E-Mail
+$inf_weburl = "http://xxyy.bplaced.net/"; // Your Website
 
 // This is needed too:
 $inf_folder = $infusion_folder; // The folder in which the infusion resides.
@@ -55,12 +55,11 @@ id INT(10) UNSIGNED AUTO_INCREMENT,
 fach TEXT NOT NULL,
 hue VARCHAR(260) NOT NULL,
 hue_short VARCHAR(140) NOT NULL,
-comment TEXT NOT NULL,
 status INT(1) UNSIGNED NOT NULL,
 user INT(10) UNSIGNED NOT NULL,
 abgabe TEXT NOT NULL,
-rate INT UNSIGNED,
-comments INT UNSIGNED,
+rate INT UNSIGNED DEFAULT 1,
+comments INT UNSIGNED DEFAULT 1,
 klasse INT UNSIGNED NOT NULL,
 typ VARCHAR(2) NOT NULL,
 dayid INT UNSIGNED NOT NULL,
@@ -77,6 +76,7 @@ hue_set VARCHAR(10) DEFAULT '0'
 $inf_newtable[3] = DB_HUE_KLASSEN." (
 id INT(10) UNSIGNED AUTO_INCREMENT,
 name TEXT NOT NULL,
+foobar TEXT,
 PRIMARY KEY (id)
 ) ".ENGINE." ".CHARSET.";";
 
@@ -84,7 +84,7 @@ $inf_newtable[4] = DB_HUE_FACH." (
 id INT(10) UNSIGNED AUTO_INCREMENT,
 name TEXT NOT NULL,
 kurz TEXT NOT NULL,
-timestamp TEXT,
+foobar TEXT,
 PRIMARY KEY (id)
 ) ".ENGINE." ".CHARSET.";";
 
@@ -92,10 +92,10 @@ $inf_newtable[5] = DB_HUE_TAG." (
 id INT(10) AUTO_INCREMENT,
 name TEXT NOT NULL,
 nohue INT(10) NOT NULL,
-kl INT(10) NOT NULL,
 monat INT(2),
 jahr INT(4),
 day INT(2),
+foobar TEXT,
 PRIMARY KEY (id)
 ) ".ENGINE." ".CHARSET.";";
 

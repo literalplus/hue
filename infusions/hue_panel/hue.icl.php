@@ -27,6 +27,8 @@ if(!defined('HUE_INCLUDES')){
 	define('HUE_INCLUDES',HUE."includes/");
 }
 
+add_to_head('<link rel="stylesheet" href="styles.css">');
+
 
 // Load Definitions
 include INFUSIONS."hue_panel/infusion_db.php";
@@ -39,6 +41,10 @@ if (file_exists(INFUSIONS."infusion_folder/locale/".$settings['locale'].".php"))
 	// Load the infusion's default locale file.
 	include INFUSIONS."infusion_folder/locale/English.php";
 }*/
+
+//Noscript!
+
+echo'<noscript><div class="admin-message">Hallo!Es scheint, als h&auml;ttest du Javascript deaktiviert.<br />Javascript ist zwar nicht unbedingt n&ouml;tig, um H&Uuml; zunutzen, allerdings sind manche Funtionen nur mit aktiviertem Javascript nutzbar.<br /></div></noscript>';
 
 //Einstellungen
 $hue=array();
@@ -98,6 +104,7 @@ add_to_head('<script type="text/javascript" src="includes/window/javascripts/pro
 
 add_to_head('<script type="text/javascript">
 function oeffnefenster (url,width,height) {
+alert("Fuktion oeffnefenster!");
  fenster = window.open(url, "fenster1", "width=400,height=235,status=yes,scrollbars=yes,resizable=yes");
  fenster.focus();
 }
@@ -247,7 +254,7 @@ $db=dbquery("SELECT name FROM ".DB_HUE_FACH." WHERE kurz='".$kurz."'");
 $db=mysql_fetch_array($db);
 return huehtml($db[0]);
 }
-function newpopup($url,$function="showWindow",$name="Popup",$class="spread"){
+/*function newpopup($url,$function="showWindow",$name="Popup",$class="spread"){
 	if(!popupclass_exists($class)) newpopupclass($class);
 	if(!isset($wc)) static $wc=0;
 	$wc++;
@@ -259,9 +266,9 @@ function newpopup($url,$function="showWindow",$name="Popup",$class="spread"){
 			win_".$wc.".showCenter();
 		}
 		</script>";
-}
+}*/
 
-function newpopupclass($class='spread'){
+/*function newpopupclass($class='spread'){
 	if(file_exists(HUE."includes/window/themes/".$class.".css")){
 		if(!defined("POPUP_".strtoupper($class))){
 			define("POPUP_".strtoupper($class),true);
@@ -274,10 +281,10 @@ function newpopupclass($class='spread'){
 	echo himg(1)."Popupklasse '".$class."' existiert nicht!";
 	return false;
 	}
-}
+}*/
 
 
-function popupclass_exists($class="spread"){
+/*function popupclass_exists($class="spread"){
 if(!defined("POPUP_".strtoupper($class))){
 return false;
 } else {
@@ -285,7 +292,7 @@ return true;
 }
 }
 newpopupclass('default');
-newpopupclass();
+newpopupclass();*/
 function himg($img){
 switch ($img) {
 case 1:
@@ -293,33 +300,36 @@ return '<img src="'.HUE_IMAGES.'achtung.png" alt="!" title="!" />';
 break;
 }
 }
-newpopup(HUE."newkl.php","NeueKlasse","Neue Klasse erstellen");
-newpopup(HUE."newtag.php","NeuerTag","Neuen Tag erstellen");
-newpopup(HUE."newfach.php","NeuesFach","Neues Fach erstellen");
 function tagliste($select=false){
-echo'<select name="dayid" size="3" class="textbox">';
+echo'<select name="dayid" size="1" class="textbox">';
 $result2=dbquery("SELECT * FROM ".DB_HUE_TAG);
 while ($day = dbarray($result2)) {
 if($day['id']==$select){
-	echo'<option label="'.$day['name'].'" value="'.$day['id'].'" checked="checked">'.$day['name'].'['.getkl($day['kl']).']</option>';
+	echo'<option label="'.$day['name'].'" value="'.$day['id'].'" checked="checked">'.$day['name'].'</option>';
 	} else {
-	echo'<option label="'.$day['name'].'" value="'.$day['id'].'">'.$day['name'].'['.getkl($day['kl']).']</option>';
+	echo'<option label="'.$day['name'].'" value="'.$day['id'].'">'.$day['name'].'</option>';
 	}
 }
 echo'</select>';
 }
-function showhuelist($klassen=false,$where="",$admin=false){
-//HÜ
+function showhuelist($klassen=false,$where="",$admin=false){ //TODO showhuelist
+//noHÜ
+	if(isset($_POST['setnohue'])){
+	dbquery("UPDATE ".DB_HUE_TAG." SET nohue=1 WHERE id=".$_POST['dayidn']);
+	echo'<div class="admin-message">Keine H&Uuml; f&uuml;r Tag '.$_POST['dayidn'].' gesetzt.</div>';
+	}
+$scriptname = $_SERVER['SCRIPT_NAME'];
+$querystring= (($_SERVER['QUERY_STRING'] == "") ? "?" : "?".$_SERVER['QUERY_STRING']."&");
 $db1="SELECT id FROM ".DB_HUE_KLASSEN." ORDER BY id";
 $db1=dbquery($db1);
 $db1=mysql_fetch_array($db1);
 $klasse=($klassen == false) ? $db1[0] : $klassen;
 $dayc=0;
-if($klassen != false){
+/*if($klassen != false){
 $dayresult=dbquery("SELECT * FROM ".DB_HUE_TAG." WHERE kl='".$klassen."' ORDER BY id DESC");
-} else {
-$dayresult=dbquery("SELECT * FROM ".DB_HUE_TAG.$where);
-}
+} else {*/
+$dayresult=dbquery("SELECT * FROM ".DB_HUE_TAG.$where." ORDER BY id DESC");
+//}
 while ($day = dbarray($dayresult)) {
 $dayc++;
 if($day['name']==date("d.m.y")){
@@ -327,12 +337,13 @@ $heute=" [HEUTE] ";
 } else {
 $heute="";
 }
-if(iHUE) {
+/*if(iHUE) {
 newpopup(HUE."nohue.php?kl=".$klasse."&day=".$day['id'],"NoHue_".$day['id'],"Keine Haus&uuml;bung?");
 newpopup(HUE."newtag.php?delete=true&day=".$day['id'],"del_".$day['id'],"Tag l&ouml;schen");
-}
-if(iHUE) $heute .= " [<a href='nohue.php?kl=".$klasse."&day=".$day['id']."' target='_blank' onclick='NoHue_".$day['id']."(); return false'>Keine Haus&uuml;bung?</a>]";
-if(iHUE) $heute .= " [<a href='newtag.php?delete=true&day=".$day['id']."' target='_blank' onclick='del_".$day['id']."(); return false'>L&ouml;schen</a>]";
+}*/
+if(iHUE) $heute .= " <span class='huethead'>[Optionen anzeigen]";
+//if(iHUE) $heute .= " [<a href='newtag.php?delete=true&day=".$day['id']."' target='_blank' onclick='del_".$day['id']."(); return false'>L&ouml;schen</a>]";
+if(iHUE) $heute .= "<div class='nohuebox tbl1'>[<a href='".$scriptname.$querystring."setnohue=true&dayidn=".$day['id']."'>Keine Haus&uuml;bung?</a>] [Tag l&ouml;schen?]</div></span>";
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>\n<tr><td style='text-align:center;'><strong>".$day['name'].$heute."</strong></td></tr>";
 echo "<tr><td><table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>\n";
 echo "<tr><td></td><td><strong>Fach</strong></td><td><strong>H&Uuml;(Kurzfassung)</strong></td><td><strong>Abgabetermin</strong></td></tr>";
@@ -345,27 +356,21 @@ $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
 $fach=dbquery("SELECT name FROM ".DB_HUE_FACH." WHERE kurz='".$data['fach']."'");
 $fach=mysql_fetch_array($fach);
 $fach=$fach[0];
-if($data['status']=="0" && $data['typ'] == "hu" && $admin==true){
+if($data['status']=="0" && $admin==true){
 	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;" title="Dieser Eintrag ist vom Typ \'Haus&uuml;bungsinformation\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&page=huea">L&ouml;schen</a>]</tr>';
-} elseif($data['status']=="0" && $data['typ'] == "ank" && $admin==true){
-	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><img src="'.HUE_IMAGES.'hu.png" alt="a" title="Dieser Eintrag ist vom Typ \'Ank&uuml;ndigung\'." /></td><td class="'.$cell_color.'">'.$data['fach'].'</a></td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td><td class="'.$cell_color.'">[<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=free&id='.$data['id'].'&page=huea">Freischalten</a>] - [<a href="'.HUE.'hue_admin.php'.$aidlink.'&action=del&id='.$data['id'].'&pgae=huea">L&ouml;schen</a>]</tr>';
-
-	} elseif($data['typ']=="hu"){
+} else{
 	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=hue&hue='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.' bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'hu.png" alt="H&Uuml;"  /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
 $hc++;
-	} else {
-	echo'<tr style="text-align:left;"><td class="'.$cell_color.'"><a href="index.php?page=ank&ank='.$data['id'].'" title="Haus&uuml;bung anzeigen:'.$fach.'  bis '.$data['abgabe'].'"><img src="'.HUE_IMAGES.'a.png" alt="Ank&uuml;ndigung" /></a></td><td class="'.$cell_color.'">'.$fach.'</td><td class="'.$cell_color.'">'.$data['hue_short'].'</td><td class="'.$cell_color.'">'.$data['abgabe'].'</td></tr>';
-$ac++;
 	}
 }
-if($hc==0 && $ac==0){
+if($hc==0){
 if($day['nohue']==1 || $day['name'] != date("d.m.y")){
-echo'</table></td></tr><tr class="tbl1"><td><div class="text-align:center">Heute, '.$day['name'].' keine Haus&uuml;bung f&uuml;r die Klasse '.getkl($klasse).'!!!</div></td></tr>';
+echo'</table></td></tr><tr class="tbl1"><td><div class="text-align:center">Am Tag '.$day['name'].' gibt es keine Haus&uuml;bung f&uuml;r die Klasse '.getkl($klasse).'.</div></td></tr>';
 } else echo'</table></td></tr><tr class="tbl1"><td><div class="text-align:center">Bis jetzt sind f&uuml;r den Tag '.$day['name'].' noch keine Haus&uuml;bungsinformationen verf&uuml;gbar, dies kann sich allerdings im Laufe des Tages noch &auml;ndern, deswegen &uuml;berpr&uuml;fe den Stand der Haus&uuml;bungen sp&auml;ter noch einmal.</div></td></tr>';
 echo "</td></tr></table><br />";
 } else {
 echo "</table></td></tr></table><br />
-<div class='small' style='text-align:right'>".$hc." Haus&uuml;bungsinformation(en), ".$ac." Ank&uuml;ndigung(en)";
+<div class='small' style='text-align:right'>".$hc." Haus&uuml;bungsinformation(en)</div>";
 }
 }
 //ende HÜ

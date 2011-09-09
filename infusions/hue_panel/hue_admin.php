@@ -19,9 +19,6 @@ require_once TEMPLATES."admin_header.php";
 require_once INFUSIONS."hue_panel/hue.icl.php";
 // Load Definitions
 
-
-// Some security checks:
-// XXX must be replaced with the admin rights you did define in infusion.php
 if (!checkrights("HUE") || !defined("iAUTH") || $_GET['aid'] != iAUTH) { redirect("../../index.php"); }
 
 /*// Check if locale file is available matching the current site locale setting.
@@ -143,21 +140,13 @@ closetable();
 break;
 case "sende":
 navi_admin(2);
-add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung/Ank&uuml;ndigung editiert");
+add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung editiert");
 if(!isset($_POST['submit']) || !isset($_POST['id'])){
 redirect("hue_admin.php".$aidlink);
 }
-if(isset($_POST['comments'])){
-$comments="1";
-} else {
-$comments="0";
-}
-if(isset($_POST['rate'])){
-$rate="1";
-} else {
-$rate="0";
-}
-$db="UPDATE ".DB_HUE." SET hue_short='".$_POST['hue_short']."',fach='".$_POST['fach']."',hue='".$_POST['hue']."',comment='".$_POST['comment']."',status='".$_POST['free']."',abgabe='".date_format(date_create($_POST['abgabe2']),"d.m.y")."',comments=".$comments.",rate=".$rate.",dayid='".$_POST['dayid']."',typ='".$_POST['typ']."',klasse='".$_POST['klasse']."',uid='".$_POST['uid']."' WHERE id='".$_POST['id']."'";
+$rate=(int) $_POST['comments'];
+$comments=(int) $_POST['comments'];
+$db="UPDATE ".DB_HUE." SET hue_short='".$_POST['hue_short']."',fach='".$_POST['fach']."',hue='".$_POST['hue']."',status='".$_POST['free']."',abgabe='".date_format(date_create($_POST['abgabe2']),"d.m.y")."',comments=".$comments.",rate=".$rate.",dayid='".$_POST['dayid']."',klasse='".$_POST['klasse']."',uid='".$_POST['uid']."' WHERE id='".$_POST['id']."'";
 if(!dbquery($db)){
 echo'<div class="admin-message">&Auml;nderung <strong>nicht</strong> erfolgreich eingetragen.<br />
 Fehler 1:dbquery('.$db.') gescheitert.</div>';
@@ -178,36 +167,27 @@ break;
 case "edit":
 if(!isset($_GET['id'])) redirect("admin_hue.php".$aidlink);
 navi_admin(2);
-add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung/Ank&uuml;ndigung bearbeiten");
+add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bungsinformation bearbeiten");
 opentable("editieren");
 $db=dbquery("SELECT * FROM ".DB_HUE." WHERE id='".$_GET['id']."'");
 while($data=dbarray($db)){
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>
 <form name='inputform' action='hue_admin.php".$aidlink."&page=sende' method='post'>";
-if($data['typ']=="hue"){
-$hue=" checked='checked'";
-$ank="";
-} else {
-$hue="";
-$ank= "checked='checked'";
-}
-echo'<tr class="tbl1"><td><input type="hidden" name="id" value="'.$_GET['id'].'" />Typ:</td><td><select name="typ" size="1" class="textbox"><option value="hue" label="Haus&uuml;bung"'.$hue.'>Haus&uuml;bung</option><option value="ank" label="Ank&uuml;ndigung"'.$ank.'>Ank&uuml;ndigung</option></select></td></tr>
-<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="javascript:NeueKlasse(); return false;">Neu</a>]:</td><td>';
+echo'<tr class="tbl1"><td><input type="hidden" name="id" value="'.$_GET['id'].'" /></td></tr>
+<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="javascript:NeueKlasse(); return false;">Neu</a>]:</td><td>';//TODO js entfernen (funktion gelöscht)
 klassenliste($data['klasse']);
 echo'</td></tr>';
-echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="javascript:NeuesFach(); return false;">Neu</a>]:</td><td>';
+echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="javascript:NeuesFach(); return false;">Neu</a>]:</td><td>';//TODO js entfernen
 fachliste($data['fach']);
 echo'</td></tr>
 <tr class="tbl2"><td>Haus&uuml;bung/Ank&uuml;ndigung:</td><td><textarea name="hue" rows="5" cols="60" class="textbox">'.$data['hue'].'</textarea></td></tr>
 <tr class="tbl1"><td></td><td>'.display_bbcodes("70%","hue","inputform").'</td></tr>
-<tr class="tbl2"><td>Haus&uuml;bung/Ank&uuml;ndigung(Kurzfassung, maximal 140 Zeichen)</td><td><textarea id="hue_short" name="hue_short" class="textbox" rows="5" cols="60" maxleght="140">'.$data['hue_short'].'</textarea></td></tr>
-<tr class="tbl2"><td>Kommentar:</td><td><textarea name="comment" rows="5" cols="60" class="textbox">'.$data['comment'].'</textarea></td></tr>
-<tr class="tbl1"><td></td><td>'.display_bbcodes("70%","comment","inputform").'</td></tr>';
+<tr class="tbl2"><td>Haus&uuml;bung/Ank&uuml;ndigung(Kurzfassung, maximal 140 Zeichen)</td><td><textarea id="hue_short" name="hue_short" class="textbox" rows="5" cols="60" maxlenght="140">'.$data['hue_short'].'</textarea></td></tr>';
 
 
 echo'<tr class="tbl2"><td>Abgabetermin(YYYY-MM-DD):</td><td><input class="textbox" type="date" min="2010" max="3000" value="'.date("Y-m-d").'" onInput="abgabe.value=value" name="abgabe2" value="'.$data['abgabe'].'">
-<output name="abgabe"></output>&nbsp;&nbsp;Falls du Opera nutzt, kannst du das Datum ausw&auml;hlen.</td></tr>';
-echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="javascript:NeuerTag(); return false;">Neu</a>]:</td><td>';
+<output name="abgabe"></output></td></tr>';
+echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="javascript:NeuerTag(); return false;">Neu</a>]:</td><td>';//TODO js entfernen
 tagliste($data['dayid']);
 echo'</td></tr>';
 
@@ -220,39 +200,6 @@ echo'</td></tr>
 <tr class="tbl2"><td></td><td><input type="submit" name="submit" value="Einsenden" class="button" /> oder <input type="reset" name="reset" value="Reset" class="button" /></td></tr>';
 echo"</table></form>";
 }
-closetable();
-break;
-case "ank":
-navi_admin(2);
-add_to_title("Haus&uuml;bungsinformationssystem&#187;Ank&uuml;ndigung einsenden");
-opentable("Ank&uuml;ndigung einsenden");
-echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>
-<form name='inputform' action='hue_admin.php".$aidlink."&page=send' method='post'>";
-echo'<tr class="tbl2"><td>Klasse[<a href="newkl.php" target="_blank" onclick="NeueKlasse(); return false">Neu</a>]:</td><td>';
-klassenliste();
-echo'</td></tr>';
-echo'<tr class="tbl1"><td>Fach[<a href="newfach.php" target="_blank" onclick="NeuerTag(); return false">Neu</a>]:</td><td>';
-fachliste();
-echo'</td></tr>
-<tr class="tbl2"><td>Ank&uuml;ndigung:</td><td><textarea name="hue" rows="5" cols="60" class="textbox"></textarea></td></tr>
-<tr class="tbl1"><td></td><td>'.display_bbcodes("70%","hue","inputform").'</td></tr>
-<tr class="tbl2"><td>Ank&uuml;ndigung(Kurzfassung, maximal 140 Zeichen)</td><td><textarea id="hue_short" name="hue_short" class="textbox" rows="5" cols="60" maxleght="140" onKeyDown=\"textCounter(this,\'count_display_hue_short\',140);\" onKeyUp=\"textCounter(this,\'count_display_hue_short\',140);\"></textarea></td></tr>
-<!--<tr class="tbl1"><td>Verbleibende Zeichen:</td><td><span id="count_display_hue_short" style="padding : 1px 3px 1px 3px; border:1px solid;"><strong>140</strong></span></td></tr>!-->
-<tr class="tbl2"><td>Kommentar:</td><td><textarea name="comment" rows="5" cols="60" class="textbox"></textarea></td></tr>
-<tr class="tbl1"><td></td><td>'.display_bbcodes("70%","comment","inputform").'</td></tr>';
-
-
-echo'<tr class="tbl2"><td>Abgabetermin(YYYY-MM-DD):</td><td><input class="textbox" type="date" min="2010" max="3000" value="'.date("Y-m-d").'" onInput="abgabe.value=value" name="abgabe2">
-<output name="abgabe"></output>&nbsp;&nbsp;Falls du Opera nutzt, kannst du das Datum ausw&auml;hlen.</td></tr>';
-echo'<tr class="tbl1"><td>Tag[<a href="newtag.php" target="_blank" onclick="NeuerTag(); return false">Neu</a>]:</td><td>';
-tagliste();
-echo'</td></tr>';
-echo'<tr class="tbl2"><td>Optionen:</td><td><input type="checkbox" name="comments" value="1" checked="checked" />Kommentare erlauben?<br />
-<input type="checkbox" name="rate" value="1" checked="checked" />Bewertungen erlauben?';
-echo'<br /><input type="hidden" name="free" value="1" /><input type="hidden" name="name" value="'.$userdata['user_name'].'" /><input type="hidden" name="uid" value="'.$userdata['user_id'].'" />';
-echo'</td></tr>
-<tr class="tbl1"><td></td><td><input type="submit" name="submit" value="Einsenden" class="button" /> oder <input type="reset" name="reset" value="Reset" class="button" /></td></tr>';
-echo"</table></form>";
 closetable();
 break;
 case "send":
@@ -337,14 +284,15 @@ navi_admin(3.3);
 opentable("Klassen verwalten");
 echo'Hier kannst du die erstellten Klassen verwalten.';
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>";
-echo '<tr><td style="text-align:center;">erstellte Klassen:[<a href="newkl.php" target="_blank" onclick="NeueKlasse(); return false">Neu</a>]</td><td style="text-align:center;">Optionen</td></tr>';
+echo '<tr><td style="text-align:center;">erstellte Klassen:<span class="huepopupcont"><a>[Neu]</a>
+<div class="huebox"><!--<iframe src="../newkl.php" width="100" height="100" frameborder="0"></iframe>!--></div></span></td><td style="text-align:center;">Optionen</td></tr>';
 $result=dbquery("SELECT * FROM ".DB_HUE_KLASSEN."");
 $dc=0;
 $i=0;
 while ($data = dbarray($result)){
 $dc++;
 $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
-newpopup(HUE."newkl.php?delete=true&kl=".$data['id'],"del_".$data['id'],"Klasse l&ouml;schen");
+//newpopup(HUE."newkl.php?delete=true&kl=".$data['id'],"del_".$data['id'],"Klasse l&ouml;schen");
 echo'<tr class="'.$cell_color.'"><td>'.$data['name'].'</td><td>'."[<a href='newkl.php?delete=true&kl=".$data['id']."' target='_blank' onclick='del_".$data['id']."(); return false'>L&ouml;schen</a>]</td></tr>";
 }
 if($dc==0){
@@ -359,14 +307,14 @@ navi_admin(3.4);
 opentable("F&auml;cher verwalten");
 echo'Hier kannst du die erstellten F&auml;cher verwalten.';
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>";
-echo '<tr><td style="text-align:center;">erstellte F&auml;cher:[<a href="newfach.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]</td><td style="text-align:center;">K&uuml;rzel</td><td style="text-align:center;">Optionen</td></tr>';
+echo '<tr><td style="text-align:center;">erstellte F&auml;cher:[<a href="newfach.php" target="_blank" onclick="oeffnefenster(this.href); return false">Neu</a>]</td><td style="text-align:center;">K&uuml;rzel</td><td style="text-align:center;">Optionen</td></tr>';// TODO oeffnefenster entfernen!
 $result=dbquery("SELECT * FROM ".DB_HUE_FACH."");
 $dc=0;
 $i=0;
 while ($data = dbarray($result)){
 $dc++;
 $cell_color = ($i % 2 == 0 ? "tbl1" : "tbl2"); $i++;
-echo'<tr class="'.$cell_color.'"><td>'.$data['name'].'</td><td>'.$data['kurz'].'</td><td>'."[<a href='newfach.php?delete=true&fach=".$data['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>L&ouml;schen</a>]</td></tr>";
+echo'<tr class="'.$cell_color.'"><td>'.$data['name'].'</td><td>'.$data['kurz'].'</td><td>'."[<a href='newfach.php?delete=true&fach=".$data['id']."' target='_blank' onclick='oeffnefenster(this.href); return false'>L&ouml;schen</a>]</td></tr>";//TODO oeffnefenster entfernen!
 }
 if($dc==0){
 echo'<tr><td><div class="color:maroon">Keine Klassen in der DB vorhanden!Bitte lege eine an, damit das Haus&uuml;bungsinformationssystem benutzbar ist!</div></td><td></td><td></td></tr>';
