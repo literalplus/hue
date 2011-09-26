@@ -36,12 +36,12 @@ echo'gel&ouml;scht.';
 closeside();
 footer_hue();
 } else {
-openside("Neuen Tag erstellen");
+openside("Neue Klasse erstellen");
 echo'Du bist gerade im Begriff, eine neue Klasse zu erstellen.Diese kann dann f&uuml;r neue Haus&uuml;bungsinformationen verwendet werden.Bitte vergewissere dich, dass die zu erstellende Klasse noch nicht existiert!';
 echo"Klasse erstellen:<form name='inputform' action='newkl.php' method='post'><table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>";
 echo"<tr class='tbl1'><td>Name:</td><td><input name='klasse' type='text' class='textbox' /></td></tr>
 <tr><td></tr><td><input type='submit' name='submit' value='Klasse erstellen' class='button' /></td></tr></table></form>";
 closeside();
-footer_hue();
+//footer_hue();
 }
 ?>

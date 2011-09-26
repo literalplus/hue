@@ -105,11 +105,11 @@ closetable();
 //}
 }
 break;
-case "einsenden2":
+case "einsenden":
 navi_hue(3);
 add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung einsenden");
 opentable("Haus&uuml;bung einsenden");
-echo "<form name='inputform' action='index.php?page=send2' id='hueforms' method='post'>";
+echo "<form name='inputform' action='index.php?page=send' id='hueforms' method='post'>";
 echo'<fieldset><legend class="legend1">Schritt 1</legend><div id="kl"><fieldset><legend class="legend1">Klasse:</legend>';
 echo'<div class="tbl1"><input type="radio" name="klasse" value="exists" />existierende Klasse w&auml;hlen:<br /><span id="exkl">';
 klassenliste();//klassen
@@ -161,7 +161,7 @@ echo"</fieldset></form>";
 footer_hue();
 closetable();
 break;
-case "send2":
+case "send":
 	navi_hue(3);
 	add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bungsinformation absenden");
 	if(isset($_POST['submit'])){
@@ -216,7 +216,7 @@ window.setTimeout("location.href=\'index.php?page=einsenden\'", 10000);
 	}
 	footer_hue();
 	break;
-case "einsenden":
+case "einsenden_alt":
 navi_hue(3);
 add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung einsenden");
 opentable("Haus&uuml;bung einsenden");
@@ -271,7 +271,7 @@ echo"</table></form>";
 footer_hue();
 closetable();
 break;
-case "send":
+case "send_alt":
 navi_hue(3);
 add_to_title("Haus&uuml;bungsinformationssystem&#187;Haus&uuml;bung absenden");
 if(isset($_POST['submit'])){

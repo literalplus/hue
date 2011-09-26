@@ -13,7 +13,7 @@
 | at www.gnu.org/licenses/agpl.html. Removal of this copyright header is
 | strictly prohibited without written permission from the original author(s).
 +---------------------------------------------------------------------------*/
-if (!defined("PHP_FUSION")) { die("Access Denied"); }
+//if (!defined("PHP_FUSION")) { die("Access Denied"); }
 
 // The folder in which the infusion resides.
 $infusion_folder = "hue_panel";
@@ -99,7 +99,7 @@ foobar TEXT,
 PRIMARY KEY (id)
 ) ".ENGINE." ".CHARSET.";";
 
-$inf_newtable[5] = DB_HUE_ABGABE." (
+$inf_newtable[6] = DB_HUE_ABGABE." (
 id INT(10) AUTO_INCREMENT,
 name TEXT NOT NULL,
 PRIMARY KEY (id)
@@ -131,6 +131,7 @@ $inf_droptable[2] = DB_HUE_SETTINGS;
 $inf_droptable[3] = DB_HUE_KLASSEN;
 $inf_droptable[4] = DB_HUE_FACH;
 $inf_droptable[5] = DB_HUE_TAG;
+$inf_droptable[6] = DB_HUE_ABGABE;
 // alter some tables
 
 $inf_deldbrow[1] = DB_PANELS." WHERE panel_filename='".$inf_folder."'";

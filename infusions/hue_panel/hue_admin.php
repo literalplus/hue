@@ -202,37 +202,6 @@ echo"</table></form>";
 }
 closetable();
 break;
-case "send":
-navi_admin(2);
-add_to_title("Haus&uuml;bungsinformationssystem&#187;Ank&uuml;ndigung absenden");
-if(isset($_POST['submit'])){
-if(isset($_POST['comments'])){
-$comments="1";
-} else {
-$comments="0";
-}
-if(isset($_POST['rate'])){
-$rate="1";
-} else {
-$rate="0";
-}
-$db="INSERT INTO ".DB_HUE." SET hue_short='".parseubb($_POST['hue_short'])."',fach='".$_POST['fach']."',hue='".$_POST['hue']."',comment='".$_POST['comment']."',status='".$_POST['free']."',abgabe='".date_format(date_create($_POST['abgabe2']),"d.m.y")."',comments=".$comments.",rate=".$rate.",dayid='".$_POST['dayid']."',typ='ank'";
-if(!dbquery($db)){
-echo'<div class="admin-message">Ank&uuml;ndigung <strong>nicht</strong> erfolgreich eingesendet.<br />
-Fehler 1:dbquery('.$db.') gescheitert.</div>';
-navi_admin(2);
-} else {
-echo'<div class="admin-message">Ank&uuml;ndigung erfolgreich eingesendet!</div>';
-
-}
-} else {
-echo'<div class="admin-message">Du hast keine Ank&uuml;ndigung eingesendet!</div>';
-echo'<script language="text/javascript">
-document.write "Du wirst weitergeleitet...";
-window.setTimeout("location.href=\'hue_admin.php'.$aidlink.'&page=ank\'", 10000);
-</script>';
-}
-break;
 case "day":
 navi_admin(3.1);
 opentable("Tage verwalten");
@@ -285,7 +254,7 @@ opentable("Klassen verwalten");
 echo'Hier kannst du die erstellten Klassen verwalten.';
 echo "<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border'>";
 echo '<tr><td style="text-align:center;">erstellte Klassen:<span class="huepopupcont"><a>[Neu]</a>
-<div class="huebox"><!--<iframe src="../newkl.php" width="100" height="100" frameborder="0"></iframe>!--></div></span></td><td style="text-align:center;">Optionen</td></tr>';
+<span style="text-align: center;"><div class="huebox"><iframe src="newkl.php" width="400" height="175" frameborder="0"></iframe></div></span></span></td><td style="text-align:center;">Optionen</td></tr>';
 $result=dbquery("SELECT * FROM ".DB_HUE_KLASSEN."");
 $dc=0;
 $i=0;
