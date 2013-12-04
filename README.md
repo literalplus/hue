@@ -1,9 +1,15 @@
+hue
+=====
+Wowe, another one of these discontinued PHP projects.
+Also, please don't hit me for teh codez, made this years ago.
+
+License
+=======
+
 /*---------------------------------------------------------------------------+
-| Hausübungsinformationssystem HÜ
+| HausÃ¼bungsinformationssystem HÃœ (homework information system infusion for PHP-Fusion)
 | Copyright (C) 2010 - 2010 
-| http://blacktigers.bplaced.net/
 +----------------------------------------------------------------------------+
-| Filename: hue_panel.php
 | Author: xxyy
 +----------------------------------------------------------------------------+
 | This program is released as free software under the Affero GPL license.
@@ -12,5 +18,3 @@
 | at www.gnu.org/licenses/agpl.html. Removal of this copyright header is
 | strictly prohibited without written permission from the original author(s).
 +---------------------------------------------------------------------------*/
-
-für Pimped-Fusion v 9.01 (Download auf http://www.pimped-fusion.net)
